@@ -37,20 +37,11 @@ public class MainArray {
                     printAll();
                     break;
                 case "delete":
-                    try {
-                        ARRAY_STORAGE.delete(uuid);
-                    } catch (Exception NumberFormatException) {
-                        System.out.println("Такого резюме нет");
-                    }finally {
-                        printAll();
-                    }
+                    ARRAY_STORAGE.delete(uuid);
+                    printAll();
                     break;
                 case "get":
-                    try {
-                        System.out.println(ARRAY_STORAGE.get(uuid));
-                    } catch (Exception NumberFormatException) {
-                        System.out.println("Такого резюме нет");
-                    }
+                    System.out.println(ARRAY_STORAGE.get(uuid));
                     break;
                 case "clear":
                     ARRAY_STORAGE.clear();
