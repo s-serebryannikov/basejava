@@ -44,7 +44,7 @@ public class ArrayStorage {
                 storage[i] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
-            }
+            }throw new NumberFormatException();
         }
     }
 

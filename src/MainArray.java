@@ -19,6 +19,10 @@ public class MainArray {
                 System.out.println("Неверная команда.");
                 continue;
             }
+            String uuid = null;
+            if (params.length == 2) {
+                uuid = params[1].intern();
+            }
             switch (params[0]) {
                 case "list":
                     printAll();
@@ -28,19 +32,25 @@ public class MainArray {
                     break;
                 case "save":
                     r = new Resume();
-                    System.out.println("Введите uuid");
-                    r.setUuid(reader.readLine());
+                    r.setUuid(uuid);
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "delete":
-                    System.out.println("Введите uuid");
-                    ARRAY_STORAGE.delete(reader.readLine());
-                    printAll();
+                    try {
+                        ARRAY_STORAGE.delete(uuid);
+                    } catch (Exception NumberFormatException) {
+                        System.out.println("Такого резюме нет");
+                    }finally {
+                        printAll();
+                    }
                     break;
                 case "get":
-                    System.out.println("Введите uuid");
-                    System.out.println(ARRAY_STORAGE.get(reader.readLine()));
+                    try {
+                        System.out.println(ARRAY_STORAGE.get(uuid));
+                    } catch (Exception NumberFormatException) {
+                        System.out.println("Такого резюме нет");
+                    }
                     break;
                 case "clear":
                     ARRAY_STORAGE.clear();
