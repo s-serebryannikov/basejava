@@ -15,7 +15,7 @@ public class ArrayStorage {
     void save(Resume r) {
         int count = 0;
         for (int i = 0; i < size; i++) {
-            if (getAll()[i].getUuid().equals(r.getUuid())) {
+            if (storage[i].getUuid().equals(r.getUuid())) {
                 count++;
             }
         }
@@ -27,8 +27,8 @@ public class ArrayStorage {
 
     public Resume get(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (getAll()[i].getUuid().equals(uuid)) {
-                return getAll()[i];
+            if (storage[i].getUuid().equals(uuid)) {
+                return storage[i];
             }
         }
         return null;
@@ -40,6 +40,7 @@ public class ArrayStorage {
                 storage[i] = storage[size - 1];
                 storage[size - 1] = null;
                 size--;
+                break;
             }
         }
     }
