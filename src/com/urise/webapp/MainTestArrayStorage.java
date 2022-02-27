@@ -1,3 +1,8 @@
+package com.urise.webapp;
+
+import com.urise.webapp.model.Resume;
+import com.urise.webapp.storage.ArrayStorage;
+
 /**
  * Test for your ArrayStorage implementation
  */
@@ -21,7 +26,7 @@ public class MainTestArrayStorage {
 
         try {
             System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
-        }catch (Exception NullPointerException){
+        } catch (Exception NullPointerException) {
             System.out.println("Такого резюме нет");
         }
 
