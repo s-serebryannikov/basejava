@@ -17,8 +17,8 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        int i = chekStorage(r.getUuid());
-        if (i != -1) {
+        int index = findIndex(r.getUuid());
+        if (index != -1) {
             System.out.println("Резюме с " + r.getUuid() + " не существует");
         } else if (size >= storage.length) {
             System.out.println("Массив переполнен!!!");
@@ -30,28 +30,27 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        int i = chekStorage(r.getUuid());
-        if (i >= 0) {
-            storage[i] = r;
+        int index = findIndex(r.getUuid());
+        if (index >= 0) {
+            storage[index] = r;
         } else {
             System.out.println("Резюме с " + r.getUuid() + " не существует");
         }
     }
 
     public Resume get(String uuid) {
-        int i = chekStorage(uuid);
-        if (i >= 0) {
-            return storage[i];
-        } else {
-            System.out.println("Резюме с " + uuid + " не существует");
-            return null;
+        int index = findIndex(uuid);
+        if (index >= 0) {
+            return storage[index];
         }
+        System.out.println("Резюме с " + uuid + " не существует");
+        return null;
     }
 
     public void delete(String uuid) {
-        int i = chekStorage(uuid);
-        if (i >= 0) {
-            storage[i] = storage[size - 1];
+        int index = findIndex(uuid);
+        if (index >= 0) {
+            storage[index] = storage[size - 1];
             storage[size - 1] = null;
             size--;
         } else {
@@ -70,7 +69,7 @@ public class ArrayStorage {
         return size;
     }
 
-    private int chekStorage(String uuid) {
+    private int findIndex(String uuid) {
         for (int i = 0; i < size; i++) {
             if (storage[i].getUuid().equals(uuid)) {
                 return i;
