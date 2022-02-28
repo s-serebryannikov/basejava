@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[6];
+    private Resume[] storage = new Resume[4];
     private int size;
 
     public void clear() {
@@ -17,52 +17,45 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        int count = 0;
-        if (size != storage.length) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].getUuid().equals(r.getUuid())) {
-                    count++;
-                }
-            }
-            if (count == 0) {
-                storage[size] = r;
-                size++;
-            } else System.out.println("Резюме с таким uuid уже существует");
-        } else System.out.println("Архив резюме переполнен");
+        int i = chekStorage(r.getUuid());
+        if (i != -1) {
+            System.out.println("Резюме с " + r.getUuid() + " не существует");
+        } else if (size >= storage.length) {
+            System.out.println("Массив переполнен!!!");
+        } else {
+            storage[size] = r;
+            size++;
+        }
+
     }
 
     public void update(Resume r) {
-        int count = 0;
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(r.getUuid())) {
-                storage[i] = r;
-                System.out.println("Резюме " + r.getUuid() + " удачно перезаписано");
-                count++;
-                break;
-            }
+        int i = chekStorage(r.getUuid());
+        if (i >= 0) {
+            storage[i] = r;
+        } else {
+            System.out.println("Резюме с " + r.getUuid() + " не существует");
         }
-        if (count == 0) System.out.println("Резюме с " + r.getUuid() + " не существует.");
     }
 
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return storage[i];
-            } else System.out.println("Резюме с " + uuid + " не существует");
+        int i = chekStorage(uuid);
+        if (i >= 0) {
+            return storage[i];
+        } else {
+            System.out.println("Резюме с " + uuid + " не существует");
+            return null;
         }
-        return null;
     }
 
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                storage[i] = storage[size - 1];
-                storage[size - 1] = null;
-                size--;
-            } else {
-                System.out.println("Резюме c " + uuid + " отсутствует!");
-            }
-            break;
+        int i = chekStorage(uuid);
+        if (i >= 0) {
+            storage[i] = storage[size - 1];
+            storage[size - 1] = null;
+            size--;
+        } else {
+            System.out.println("Резюме с " + uuid + " не существует");
         }
     }
 
@@ -75,5 +68,14 @@ public class ArrayStorage {
 
     public int size() {
         return size;
+    }
+
+    private int chekStorage(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
