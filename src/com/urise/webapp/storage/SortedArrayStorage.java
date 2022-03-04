@@ -4,25 +4,28 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public class ArrayStorage extends AbstractArrayStorage{
+public class SortedArrayStorage extends AbstractArrayStorage{
 
+    @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
+    @Override
     public void save(Resume r) {
         int index = findIndex(r.getUuid());
-        if (index != -1) {
-            System.out.println("Резюме с " + r.getUuid() + " уже существует");
+        if (index <= -1 || size == 0) {
+            storage[size] = r;
+            size++;
         } else if (size >= storage.length) {
             System.out.println("Массив переполнен!!!");
         } else {
-            storage[size] = r;
-            size++;
+            System.out.println("Резюме с " + r.getUuid() + " уже существует");
         }
     }
 
+    @Override
     public void update(Resume r) {
         int index = findIndex(r.getUuid());
         if (index >= 0) {
@@ -32,6 +35,7 @@ public class ArrayStorage extends AbstractArrayStorage{
         }
     }
 
+    @Override
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
@@ -43,16 +47,15 @@ public class ArrayStorage extends AbstractArrayStorage{
         }
     }
 
+    @Override
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
 
+    @Override
     protected int findIndex(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        return -1;
+        Resume searchKey = new Resume();
+        searchKey.setUuid(uuid);
+        return Arrays.binarySearch(storage,0,size,searchKey);
     }
 }
