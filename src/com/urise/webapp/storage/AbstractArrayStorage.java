@@ -4,7 +4,7 @@ import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
 
-public abstract class AbstractArrayStorage implements Storage{
+public abstract class AbstractArrayStorage implements Storage {
     public static final int STORAGE_LIMIT = 10000;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
@@ -13,6 +13,18 @@ public abstract class AbstractArrayStorage implements Storage{
     public void clear() {
         Arrays.fill(storage, 0, size, null);
         size = 0;
+    }
+
+    public void save(Resume r) {
+        String uuid = r.getUuid();
+        int index = findIndex(uuid);
+        if (index < 0) {
+            saveResume(r, index);
+        } else if (size >= storage.length) {
+            System.out.println("Массив переполнен!!!");
+        } else {
+            System.out.println("Резюме с " + uuid + " уже существует");
+        }
     }
 
     public Resume get(String uuid) {
@@ -24,6 +36,26 @@ public abstract class AbstractArrayStorage implements Storage{
         return null;
     }
 
+    public void delete(String uuid) {
+        int index = findIndex(uuid);
+        if (index >= 0) {
+            deleteResume(uuid, index);
+        } else {
+            System.out.println("Резюме с " + uuid + " не существует");
+        }
+    }
+
+    public void update(Resume r) {
+        String uuid = r.getUuid();
+        int index = findIndex(r.getUuid());
+        if (index >= 0) {
+            storage[index] = r;
+            System.out.println("Резюме с " + uuid + " успешно обновлено");
+        } else {
+            System.out.println("Резюме с " + uuid + " не существует");
+        }
+    }
+
     public Resume[] getAll() {
         return Arrays.copyOf(storage, size);
     }
@@ -31,6 +63,10 @@ public abstract class AbstractArrayStorage implements Storage{
     public int size() {
         return size;
     }
+
+    protected abstract void saveResume(Resume r, int index);
+
+    protected abstract void deleteResume(String uuid, int index);
 
     protected abstract int findIndex(String uuid);
 }
