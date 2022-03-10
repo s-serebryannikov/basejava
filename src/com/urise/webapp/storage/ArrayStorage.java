@@ -6,17 +6,12 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
     protected void saveResume(Resume r, int index) {
-        if (index <= -1 || size == 0) {
             storage[size] = r;
-            size++;
-        }
     }
 
     @Override
-    protected void deleteResume(String uuid, int index) {
+    protected void deleteResume(int index) {
         storage[index] = storage[size - 1];
-        storage[size - 1] = null;
-        size--;
     }
 
     @Override

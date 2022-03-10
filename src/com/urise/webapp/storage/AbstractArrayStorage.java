@@ -5,7 +5,7 @@ import com.urise.webapp.model.Resume;
 import java.util.Arrays;
 
 public abstract class AbstractArrayStorage implements Storage {
-    public static final int STORAGE_LIMIT = 10000;
+    public static final int STORAGE_LIMIT = 3;
 
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size;
@@ -18,10 +18,11 @@ public abstract class AbstractArrayStorage implements Storage {
     public void save(Resume r) {
         String uuid = r.getUuid();
         int index = findIndex(uuid);
-        if (index < 0) {
-            saveResume(r, index);
-        } else if (size >= storage.length) {
+        if (size == STORAGE_LIMIT) {
             System.out.println("Массив переполнен!!!");
+        } else if (index < 0) {
+            saveResume(r, index);
+            size++;
         } else {
             System.out.println("Резюме с " + uuid + " уже существует");
         }
@@ -39,7 +40,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int index = findIndex(uuid);
         if (index >= 0) {
-            deleteResume(uuid, index);
+            deleteResume(index);
+            storage[size - 1] = null;
+            size--;
         } else {
             System.out.println("Резюме с " + uuid + " не существует");
         }
@@ -66,7 +69,7 @@ public abstract class AbstractArrayStorage implements Storage {
 
     protected abstract void saveResume(Resume r, int index);
 
-    protected abstract void deleteResume(String uuid, int index);
+    protected abstract void deleteResume(int index);
 
     protected abstract int findIndex(String uuid);
 }
