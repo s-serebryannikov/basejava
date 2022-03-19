@@ -24,7 +24,6 @@ public class Resume implements Comparable<Resume>{
 
     @Override
     public String toString() {
-        System.out.println("Вызов toString ");
         return uuid;
     }
 

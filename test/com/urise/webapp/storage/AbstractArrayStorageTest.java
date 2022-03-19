@@ -2,86 +2,114 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageExeption;
 import com.urise.webapp.model.Resume;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static com.urise.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
+import static org.junit.Assert.*;
+
 public abstract class AbstractArrayStorageTest {
-    public final Storage ARRAY_STORAGE;
+    public final Storage arrayStorage;
+
+    private static final Resume RESUME_1 = new Resume("uuid1");
+    private static final Resume RESUME_2 = new Resume("uuid2");
+    private static final Resume RESUME_3 = new Resume("uuid3");
+    private static final Resume RESUME_4 = new Resume("uuid4");
+    private static final Resume[] RESUMES = {RESUME_1, RESUME_2, RESUME_3};
 
     public AbstractArrayStorageTest(Storage storage) {
-        this.ARRAY_STORAGE = storage;
+        this.arrayStorage = storage;
     }
 
-    private static final Resume UUID_1 = new Resume("uuid1");
-    private static final Resume UUID_2 = new Resume("uuid2");
-    private static final Resume UUID_3 = new Resume("uuid3");
-    private static final Resume UUID_4 = new Resume("uuid4");
-    private static final Resume[] RESUMES = {UUID_1, UUID_2, UUID_3};
-
     @Before
-    public void setUpAbstractArrayStorage() {
-        ARRAY_STORAGE.clear();
-        ARRAY_STORAGE.save(UUID_1);
-        ARRAY_STORAGE.save(UUID_2);
-        ARRAY_STORAGE.save(UUID_3);
+    public void setUp() {
+        arrayStorage.clear();
+        arrayStorage.save(RESUME_1);
+        arrayStorage.save(RESUME_2);
+        arrayStorage.save(RESUME_3);
     }
 
     @Test
     public void clearShouldDeleteAllResume() {
-        ARRAY_STORAGE.clear();
-        Assert.assertEquals(0, ARRAY_STORAGE.size());
+        arrayStorage.clear();
+        assertEquals(0, arrayStorage.size());
     }
 
     @Test
     public void saveShouldAddNewResume() {
-        ARRAY_STORAGE.save(UUID_4);
-        Assert.assertEquals(UUID_4, ARRAY_STORAGE.get("uuid4"));
+        arrayStorage.save(RESUME_4);
+        assertEquals(RESUME_4, arrayStorage.get("uuid4"));
+    }
+
+    @Test
+    public void saveShouldIncreaseSize() {
+        arrayStorage.save(RESUME_4);
+        assertEquals(4, arrayStorage.size());//проверить size
     }
 
     @Test(expected = ExistStorageException.class)
     public void saveShouldThrowException() {
-        ARRAY_STORAGE.save(UUID_1);
-        Assert.assertEquals(UUID_1, ARRAY_STORAGE.get("uuid4"));
+        arrayStorage.save(RESUME_1);
+    }
+
+    @Test(expected = StorageExeption.class)
+    public void saveShouldThrowStorageException() {
+        arrayStorage.clear();
+        try {
+            for (int i = 0; i < STORAGE_LIMIT; i++) {
+                arrayStorage.save(new Resume("uuid" + (i + 1)));
+            }
+        } catch (StorageExeption e) {
+            Assert.fail();
+        }
+        arrayStorage.save(new Resume("fullName"));
     }
 
     @Test
     public void getShouldReturnResume() {
-        Assert.assertEquals(UUID_1, ARRAY_STORAGE.get(UUID_1.getUuid()));
+        assertEquals(RESUME_1, arrayStorage.get(RESUME_1.getUuid()));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void getShouldThrowException() {
-        Assert.assertEquals(UUID_4, ARRAY_STORAGE.get("uuid4"));
+        assertEquals(RESUME_4, arrayStorage.get("uuid4"));
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void deleteShouldRemoveResume(){
-    ARRAY_STORAGE.delete("uuid2");
-        Assert.assertNull(ARRAY_STORAGE.get("uuid2"));
+    public void deleteShouldRemoveResume() {
+        arrayStorage.delete("uuid2");
+        arrayStorage.get("uuid2");
+    }
+
+    @Test()
+    public void deleteShouldReduceSize() {
+        arrayStorage.delete("uuid2");
+        assertEquals(2, arrayStorage.size());
     }
 
     @Test
-    public void updateShouldReplaceResume(){
+    public void updateShouldReplaceResume() {
         Resume resume = new Resume("uuid1");
-        ARRAY_STORAGE.update(resume);
-        Assert.assertEquals(resume, ARRAY_STORAGE.get("uuid1"));
+        arrayStorage.update(resume);
+        assertSame(resume, arrayStorage.get("uuid1"));
     }
 
     @Test(expected = NotExistStorageException.class)
-    public void updateShouldThrowException(){
+    public void updateShouldThrowException() {
         Resume resume = new Resume("uuid5");
-        ARRAY_STORAGE.update(resume);
+        arrayStorage.update(resume);
     }
 
     @Test
-    public void getAll(){
-        Assert.assertArrayEquals(RESUMES, ARRAY_STORAGE.getAll());
+    public void getAll() {
+        assertArrayEquals(RESUMES, arrayStorage.getAll());
     }
 
     @Test
     public void size() {
-        Assert.assertEquals(3, ARRAY_STORAGE.size());
+        assertEquals(3, arrayStorage.size());
     }
 }
