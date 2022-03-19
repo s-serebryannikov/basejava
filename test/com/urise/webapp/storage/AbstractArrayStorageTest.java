@@ -20,8 +20,8 @@ public abstract class AbstractArrayStorageTest {
     private static final Resume RESUME_4 = new Resume("uuid4");
     private static final Resume[] RESUMES = {RESUME_1, RESUME_2, RESUME_3};
 
-    public AbstractArrayStorageTest(Storage storage) {
-        this.arrayStorage = storage;
+    public AbstractArrayStorageTest(Storage arrayStorage) {
+        this.arrayStorage = arrayStorage;
     }
 
     @Before
@@ -36,18 +36,14 @@ public abstract class AbstractArrayStorageTest {
     public void clearShouldDeleteAllResume() {
         arrayStorage.clear();
         assertEquals(0, arrayStorage.size());
+        assertArrayEquals(arrayStorage.getAll(), new Resume[0]);
     }
 
     @Test
     public void saveShouldAddNewResume() {
         arrayStorage.save(RESUME_4);
         assertEquals(RESUME_4, arrayStorage.get("uuid4"));
-    }
-
-    @Test
-    public void saveShouldIncreaseSize() {
-        arrayStorage.save(RESUME_4);
-        assertEquals(4, arrayStorage.size());//проверить size
+        assertEquals(4, arrayStorage.size());
     }
 
     @Test(expected = ExistStorageException.class)
@@ -63,9 +59,9 @@ public abstract class AbstractArrayStorageTest {
                 arrayStorage.save(new Resume("uuid" + (i + 1)));
             }
         } catch (StorageExeption e) {
-            Assert.fail();
+            Assert.fail("Storage overflow occurred ahead of time");
         }
-        arrayStorage.save(new Resume("fullName"));
+        arrayStorage.save(new Resume("uuID"));
     }
 
     @Test
@@ -82,11 +78,6 @@ public abstract class AbstractArrayStorageTest {
     public void deleteShouldRemoveResume() {
         arrayStorage.delete("uuid2");
         arrayStorage.get("uuid2");
-    }
-
-    @Test()
-    public void deleteShouldReduceSize() {
-        arrayStorage.delete("uuid2");
         assertEquals(2, arrayStorage.size());
     }
 
