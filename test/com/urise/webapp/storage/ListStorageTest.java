@@ -1,7 +1,9 @@
 package com.urise.webapp.storage;
 
-public class ListStorageTest extends AbstractArrayStorageTest{
-    public ListStorageTest() {
-        super(new ListStorage());
+public class ListStorageTest extends AbstractStorageTest {
+
+    @Override
+    public void constructorStorage() {
+        arrayStorage = new ListStorage();
     }
 }

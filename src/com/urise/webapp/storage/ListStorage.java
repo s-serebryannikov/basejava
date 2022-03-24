@@ -15,22 +15,22 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveImplements(Resume r, int index) {
+    protected void saveResume(Resume r, int index) {
         storageList.add(r);
     }
 
     @Override
-    public Resume getImplements(int index) {
+    public Resume getResume(int index) {
         return storageList.get(index);
     }
 
     @Override
-    public void deleteImplements(int index) {
+    public void deleteResume(int index) {
         storageList.remove(index);
     }
 
     @Override
-    public void updateImplements(Resume r,int index) {
+    public void updateResume(Resume r, int index) {
         storageList.set(index, r);
     }
 
