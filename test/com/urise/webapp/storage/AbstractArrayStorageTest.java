@@ -9,20 +9,20 @@ import static com.urise.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
 
 public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
 
-    public AbstractArrayStorageTest(Storage arrayStorage) {
-        super(arrayStorage);
+    public AbstractArrayStorageTest(Storage storage) {
+        super(storage);
     }
 
     @Test(expected = StorageExeption.class)
     public void saveShouldThrowStorageException() {
-        arrayStorage.clear();
+        storage.clear();
         try {
             for (int i = 0; i < STORAGE_LIMIT; i++) {
-                arrayStorage.save(new Resume("uuid" + (i + 1)));
+                storage.save(new Resume("uuid" + (i + 1)));
             }
         } catch (StorageExeption e) {
             Assert.fail("Storage overflow occurred ahead of time");
         }
-        arrayStorage.save(new Resume("uuID"));
+        storage.save(new Resume("uuID"));
     }
 }

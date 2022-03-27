@@ -8,47 +8,47 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume r) {
-        Object key = checkSerchKeyExistStorage(r.getUuid());
+        Object key = findSeachKeyIfExist(r.getUuid());
         saveResume(r, key);
     }
 
     @Override
     public Resume get(String uuid) {
-        Object key = checkSerchKeyNotExistStorage(uuid);
+        Object key = findSeachKeyIfNotExist(uuid);
         return getResume(key);
     }
 
     @Override
     public void delete(String uuid) {
-        Object key = checkSerchKeyNotExistStorage(uuid);
+        Object key = findSeachKeyIfNotExist(uuid);
         deleteResume(key);
     }
 
     @Override
     public void update(Resume r) {
-        Object key = checkSerchKeyNotExistStorage(r.getUuid());
+        Object key = findSeachKeyIfNotExist(r.getUuid());
         updateResume(r, key);
     }
 
-    public Object checkSerchKeyExistStorage(String uuid) {
+    public Object findSeachKeyIfExist(String uuid) {
         Object key = searchKey(uuid);
-        if(isException(key)){
+        if(isExist(key)){
             throw new ExistStorageException(uuid);
         }
         return key;
     }
 
-    public Object checkSerchKeyNotExistStorage(String uuid) {
+    public Object findSeachKeyIfNotExist(String uuid) {
         Object key = searchKey(uuid);
-        if(!isException(key)){
+        if(!isExist(key)){
             throw new NotExistStorageException(uuid);
         }
         return key;
     }
 
-    protected abstract boolean isException(Object searchKey);
+    protected abstract boolean isExist(Object searchKey);
 
-    protected abstract void saveResume(Resume r, Object index);
+    protected abstract void saveResume(Resume r, Object key);
 
     protected abstract Object searchKey(String uuid);
 
