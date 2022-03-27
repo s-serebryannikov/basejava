@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ListStorage extends AbstractStorage {
 
-    List<Resume> storageList = new ArrayList<>();
+    private final List<Resume> storageList = new ArrayList<>();
 
     @Override
     public void clear() {
@@ -15,23 +15,23 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume r, int index) {
+    protected void saveResume(Resume r, Object key) {
         storageList.add(r);
     }
 
     @Override
-    public Resume getResume(int index) {
-        return storageList.get(index);
+    public Resume getResume(Object key) {
+        return storageList.get((int) key);
     }
 
     @Override
-    public void deleteResume(int index) {
-        storageList.remove(index);
+    public void deleteResume(Object key) {
+        storageList.remove((int) key);
     }
 
     @Override
-    public void updateResume(Resume r, int index) {
-        storageList.set(index, r);
+    public void updateResume(Resume r, Object index) {
+        storageList.set((int) index, r);
     }
 
     @Override
@@ -45,10 +45,15 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected int findIndex(String uuid) {
-        for (Resume resume : storageList) {
-            if (resume.getUuid().equals(uuid)) {
-                return storageList.indexOf(resume);
+    protected boolean isException(Object searchKey) {
+        return searchKey != null;
+    }
+
+    @Override
+    protected Integer searchKey(String uuid) {
+        for (int i = 0; i < storageList.size(); i++) {
+            if (uuid.equals(storageList.get(i).getUuid())) {
+                return i;
             }
         }
         return -1;

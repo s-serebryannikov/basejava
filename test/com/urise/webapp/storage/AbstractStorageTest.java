@@ -9,7 +9,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
-    public Storage arrayStorage;
+    protected final Storage arrayStorage;
 
     private static final Resume RESUME_1 = new Resume("uuid1");
     private static final Resume RESUME_2 = new Resume("uuid2");
@@ -17,11 +17,12 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_4 = new Resume("uuid4");
     private static final Resume[] RESUMES = {RESUME_1, RESUME_2, RESUME_3};
 
-    public abstract void constructorStorage();
+    public AbstractStorageTest(Storage storage) {
+        this.arrayStorage = storage;
+    }
 
     @Before
     public void setUp() {
-        constructorStorage();
         arrayStorage.clear();
         arrayStorage.save(RESUME_1);
         arrayStorage.save(RESUME_2);
@@ -42,12 +43,10 @@ public abstract class AbstractStorageTest {
         assertEquals(4, arrayStorage.size());
     }
 
-
     @Test(expected = ExistStorageException.class)
     public void saveShouldThrowException() {
         arrayStorage.save(RESUME_1);
     }
-
 
     @Test
     public void getShouldReturnResume() {

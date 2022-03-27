@@ -7,7 +7,12 @@ import org.junit.Test;
 
 import static com.urise.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
 
-public abstract class AbstractArrayStorageTest extends AbstractStorageTest{
+public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
+
+    public AbstractArrayStorageTest(Storage arrayStorage) {
+        super(arrayStorage);
+    }
+
     @Test(expected = StorageExeption.class)
     public void saveShouldThrowStorageException() {
         arrayStorage.clear();

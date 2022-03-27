@@ -6,7 +6,7 @@ import java.util.*;
 
 public class MapStorage extends AbstractStorage {
 
-    Map<String, Resume> storageMap = new HashMap();
+    private final Map<String, Resume> storageMap = new HashMap<>();
 
     @Override
     public void clear() {
@@ -14,25 +14,28 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume r,int index) {
-        storageMap.put(r.getUuid(),r);
+    protected boolean isException(Object searchKey) {
+        return searchKey != null;
     }
 
     @Override
-    protected Resume getResume(int index) {
-        ArrayList<String> key = new ArrayList<>(storageMap.keySet());
-        return storageMap.get(key.get(index));
+    protected void saveResume(Resume r, Object key) {
+        storageMap.put(r.getUuid(), r);
     }
 
     @Override
-    protected void deleteResume(int index) {
-        ArrayList<String> key = new ArrayList<>(storageMap.keySet());
-        storageMap.remove(key.get(index));
+    protected Resume getResume(Object key) {
+        return storageMap.get(key);
     }
 
     @Override
-    protected void updateResume(Resume r, int index) {
-        storageMap.put(r.getUuid(),r);
+    protected void deleteResume(Object key) {
+        storageMap.remove((String) key);
+    }
+
+    @Override
+    protected void updateResume(Resume r, Object key) {
+        storageMap.put((String) key, r);
     }
 
     @Override
@@ -43,14 +46,8 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    protected int findIndex(String uuid) {
-        for(Map.Entry<String,Resume> entry: storageMap.entrySet()){
-            if(entry.getKey().equals(uuid)){
-                ArrayList<String> key = new ArrayList<>(storageMap.keySet());
-                return key.indexOf(uuid);
-            }
-        }
-        return -1;
+    protected String searchKey(String uuid) {
+        return storageMap.containsKey(uuid) ? uuid : null;
     }
 
     @Override
