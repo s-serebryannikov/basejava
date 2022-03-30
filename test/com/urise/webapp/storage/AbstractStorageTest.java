@@ -6,15 +6,19 @@ import com.urise.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 public abstract class AbstractStorageTest {
     protected final Storage storage;
 
-    private static final Resume RESUME_1 = new Resume("uuid1");
-    private static final Resume RESUME_2 = new Resume("uuid2");
-    private static final Resume RESUME_3 = new Resume("uuid3");
-    private static final Resume RESUME_4 = new Resume("uuid4");
+    private static final Resume RESUME_1 = new Resume("uuid1","Иван Иванов");
+    private static final Resume RESUME_2 = new Resume("uuid2","Иван Иванов");
+    private static final Resume RESUME_3 = new Resume("uuid3","Иван Иванов");
+    private static final Resume RESUME_4 = new Resume("uuid4","Иван Иванов");
     private static final Resume[] RESUMES = {RESUME_1, RESUME_2, RESUME_3};
 
     public AbstractStorageTest(Storage storage) {
@@ -33,7 +37,7 @@ public abstract class AbstractStorageTest {
     public void clearShouldDeleteAllResume() {
         storage.clear();
         assertEquals(0, storage.size());
-        assertArrayEquals(storage.getAll(), new Resume[0]);
+        assertEquals(storage.getAllSorted(), Collections.emptyList());
     }
 
     @Test
@@ -67,20 +71,20 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void updateShouldReplaceResume() {
-        Resume resume = new Resume("uuid1");
+        Resume resume = new Resume("uuid1","Иван Сидоров");
         storage.update(resume);
         assertSame(resume, storage.get("uuid1"));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void updateShouldThrowException() {
-        Resume resume = new Resume("uuid5");
+        Resume resume = new Resume("uuid5","Петр Иванов");
         storage.update(resume);
     }
 
     @Test
-    public void getAll() {
-        assertArrayEquals(RESUMES, storage.getAll());
+    public void getSortedAll() {
+        assertEquals(Arrays.asList(Arrays.copyOf(RESUMES,3)), storage.getAllSorted());
     }
 
     @Test

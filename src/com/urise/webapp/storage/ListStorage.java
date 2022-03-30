@@ -35,18 +35,18 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return storageList.toArray(new Resume[0]);
-    }
-
-    @Override
     public int size() {
         return storageList.size();
     }
 
     @Override
+    protected List<Resume> returnListResumes() {
+        return storageList;
+    }
+
+    @Override
     protected boolean isExist(Object searchKey) {
-        return (int) searchKey >= 0;
+        return searchKey != null;
     }
 
     @Override
@@ -56,6 +56,6 @@ public class ListStorage extends AbstractStorage {
                 return i;
             }
         }
-        return -1;
+        return null;
     }
 }
