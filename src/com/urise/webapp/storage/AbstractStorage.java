@@ -11,72 +11,74 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public void save(Resume r) {
-        Object key = findSeachKeyIfExist(r.getUuid());
-        saveResume(r, key);
+        Object searchKey = getNotExistedSearchKey(r.getUuid());
+        saveResume(r, searchKey);
     }
 
     @Override
     public Resume get(String uuid) {
-        Object key = findSeachKeyIfNotExist(uuid);
-        return getResume(key);
+        Object searchKey = getExistedSearchKey(uuid);
+        return getResume(searchKey);
     }
 
     @Override
     public void delete(String uuid) {
-        Object key = findSeachKeyIfNotExist(uuid);
-        deleteResume(key);
+        Object searchKey = getExistedSearchKey(uuid);
+        deleteResume(searchKey);
     }
 
     @Override
     public void update(Resume r) {
-        Object key = findSeachKeyIfNotExist(r.getUuid());
-        updateResume(r, key);
+        Object searchKey = getExistedSearchKey(r.getUuid());
+        updateResume(r, searchKey);
     }
 
-    private Object findSeachKeyIfExist(String uuid) {
-        Object key = searchKey(uuid);
-        if (isExist(key)) {
+    private Object getNotExistedSearchKey(String uuid) {
+        Object searchKey = searchKey(uuid);
+        if (isExist(searchKey)) {
             throw new ExistStorageException(uuid);
         }
-        return key;
+        return searchKey;
     }
 
-    private Object findSeachKeyIfNotExist(String uuid) {
-        Object key = searchKey(uuid);
-        if (!isExist(key)) {
+    private Object getExistedSearchKey(String uuid) {
+        Object searchKey = searchKey(uuid);
+        if (!isExist(searchKey)) {
             throw new NotExistStorageException(uuid);
         }
-        return key;
+        return searchKey;
     }
 
 
     @Override
     public List<Resume> getAllSorted() {
-        Comparator<Resume> resumeComparator = new Comparator<Resume>() {
-            @Override
-            public int compare(Resume r1, Resume r2) {
-                if (!r1.getFullName().equals(r2.getFullName())) {
-                    return r1.getFullName().compareTo(r2.getFullName());
-                }
-                return r1.getUuid().compareTo(r2.getUuid());
-            }
-        };
-        List<Resume> sortedList = returnListResumes();
+        Comparator<Resume> resumeComparator = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
+
+ //           new Comparator<Resume>() {
+//            @Override
+//            public int compare(Resume r1, Resume r2) {
+//                if (!r1.getFullName().equals(r2.getFullName())) {
+//                    return r1.getFullName().compareTo(r2.getFullName());
+//                }
+//                return r1.getUuid().compareTo(r2.getUuid());
+//            }
+//        };
+        List<Resume> sortedList = receiveListResumes();
         sortedList.sort(resumeComparator);
         return sortedList;
     }
 
-    protected abstract List<Resume> returnListResumes();
+    protected abstract List<Resume> receiveListResumes();
 
     protected abstract boolean isExist(Object searchKey);
 
-    protected abstract void saveResume(Resume r, Object key);
+    protected abstract void saveResume(Resume r, Object searchKey);
 
     protected abstract Object searchKey(String uuid);
 
-    protected abstract void deleteResume(Object key);
+    protected abstract void deleteResume(Object searchKey);
 
-    protected abstract void updateResume(Resume r, Object key);
+    protected abstract void updateResume(Resume r, Object searchKey);
 
-    protected abstract Resume getResume(Object key);
+    protected abstract Resume getResume(Object searchKey);
 }

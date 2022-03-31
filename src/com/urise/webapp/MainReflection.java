@@ -20,7 +20,7 @@ public class MainReflection {
 
         System.out.println("\n=================\n");
 
-        Class resumeClass = Resume.class;
+        Class<Resume> resumeClass = Resume.class;
         Method method1 = resumeClass.getMethod("toString");
         System.out.println(method1.invoke(r));
     }

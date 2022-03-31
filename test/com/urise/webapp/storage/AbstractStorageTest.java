@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
@@ -19,7 +20,9 @@ public abstract class AbstractStorageTest {
     private static final Resume RESUME_2 = new Resume("uuid2","Иван Иванов");
     private static final Resume RESUME_3 = new Resume("uuid3","Иван Иванов");
     private static final Resume RESUME_4 = new Resume("uuid4","Иван Иванов");
-    private static final Resume[] RESUMES = {RESUME_1, RESUME_2, RESUME_3};
+    private static final List<Resume> RESUMES = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
+
+
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
@@ -65,8 +68,8 @@ public abstract class AbstractStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void deleteShouldRemoveResume() {
         storage.delete("uuid2");
-        storage.get("uuid2");
         assertEquals(2, storage.size());
+        storage.get("uuid2");
     }
 
     @Test
@@ -84,7 +87,7 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getSortedAll() {
-        assertEquals(Arrays.asList(Arrays.copyOf(RESUMES,3)), storage.getAllSorted());
+        assertEquals(RESUMES, storage.getAllSorted());
     }
 
     @Test

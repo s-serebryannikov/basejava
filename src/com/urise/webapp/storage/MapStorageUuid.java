@@ -17,9 +17,8 @@ public class MapStorageUuid extends AbstractStorage {
     }
 
     @Override
-    protected List<Resume> returnListResumes() {
-        List<Resume> list = new ArrayList(storageMap.values());
-        return list;
+    protected List<Resume> receiveListResumes() {
+        return new ArrayList<>(storageMap.values());
     }
 
     @Override
@@ -28,28 +27,28 @@ public class MapStorageUuid extends AbstractStorage {
     }
 
     @Override
-    protected void saveResume(Resume r, Object key) {
+    protected void saveResume(Resume r, Object searchKey) {
         storageMap.put(r.getUuid(), r);
     }
 
     @Override
-    protected Resume getResume(Object key) {
-        return storageMap.get(key);
+    protected Resume getResume(Object searchKey) {
+        return storageMap.get(searchKey);
     }
 
     @Override
-    protected void deleteResume(Object key) {
-        storageMap.remove((String) key);
+    protected void deleteResume(Object searchKey) {
+        storageMap.remove((String) searchKey);
     }
 
     @Override
-    protected void updateResume(Resume r, Object key) {
-        storageMap.put((String) key, r);
+    protected void updateResume(Resume r, Object searchKey) {
+        storageMap.put((String) searchKey, r);
     }
 
     @Override
     protected String searchKey(String uuid) {
-        return storageMap.containsKey((String) uuid) ? (String) uuid : null;
+        return storageMap.containsKey(uuid) ?  uuid : null;
     }
 
     @Override

@@ -40,7 +40,7 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    protected List<Resume> returnListResumes() {
+    protected List<Resume> receiveListResumes() {
         return storageList;
     }
 
