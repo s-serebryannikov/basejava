@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -39,8 +38,7 @@ public abstract class AbstractStorageTest {
     @Test
     public void clearShouldDeleteAllResume() {
         storage.clear();
-        assertEquals(0, storage.size());
-        assertEquals(storage.getAllSorted(), Collections.emptyList());
+        assertEquals(0, storage.getAllSorted().size());
     }
 
     @Test
@@ -87,7 +85,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getSortedAll() {
-        assertEquals(RESUMES, storage.getAllSorted());
+        List<Resume> list = storage.getAllSorted();
+        assertEquals(3,list.size());
+        assertEquals(list, Arrays.asList(RESUME_1,RESUME_2,RESUME_3));
     }
 
     @Test

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MapStorageUuid extends AbstractStorage {
+public class MapStorageUuid extends AbstractStorage<String> {
 
     private final Map<String, Resume> storageMap = new HashMap<>();
 
@@ -17,42 +17,44 @@ public class MapStorageUuid extends AbstractStorage {
     }
 
     @Override
+    protected void saveResume(Resume r, String uuid) {
+        storageMap.put(r.getUuid(), r);
+    }
+
+    @Override
+    protected Resume getResume(String uuid) {
+        return storageMap.get(uuid);
+    }
+
+    @Override
+    protected void deleteResume(String uuid) {
+        storageMap.remove(uuid);
+    }
+
+    @Override
+    protected void updateResume(Resume r, String uuid) {
+        storageMap.put(uuid, r);
+    }
+
+    @Override
     protected List<Resume> receiveListResumes() {
         return new ArrayList<>(storageMap.values());
     }
 
     @Override
-    protected boolean isExist(Object searchKey) {
-        return searchKey != null;
-    }
-
-    @Override
-    protected void saveResume(Resume r, Object searchKey) {
-        storageMap.put(r.getUuid(), r);
-    }
-
-    @Override
-    protected Resume getResume(Object searchKey) {
-        return storageMap.get(searchKey);
-    }
-
-    @Override
-    protected void deleteResume(Object searchKey) {
-        storageMap.remove((String) searchKey);
-    }
-
-    @Override
-    protected void updateResume(Resume r, Object searchKey) {
-        storageMap.put((String) searchKey, r);
-    }
-
-    @Override
-    protected String searchKey(String uuid) {
-        return storageMap.containsKey(uuid) ?  uuid : null;
+    protected boolean isExist(String uuid) {
+        return storageMap.containsKey(uuid);
     }
 
     @Override
     public int size() {
         return storageMap.size();
     }
+
+    @Override
+    protected String searchKey(String uuid) {
+        return storageMap.containsKey(uuid) ? uuid : null;
+    }
+
+
 }
