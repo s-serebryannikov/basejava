@@ -4,7 +4,9 @@ public enum ContactType {
     PHONE_NUMBER("Номер телефона"),
     SKYPE("Скайп"),
     MAIL("Почта"),
-    LINKED_IN("");
+    LINKED_IN("LINKED_IN"),
+    GITHUB("GitHub"),
+    STACKOVERFLOW("Stackoverflow");
 
     private String title;
 
@@ -15,4 +17,5 @@ public enum ContactType {
     public String getTitle() {
         return title;
     }
+
 }

@@ -1,15 +1,14 @@
 package com.urise.webapp.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class ListSection extends AbstractSection {
-    List<String> elements = new ArrayList<>();
+    List<String> elements;
 
-    public ListSection(String elements) {
+    public ListSection(List<String> elements) {
         Objects.requireNonNull(elements, "uuid must not be null");
-        this.elements.add(elements);
+        this.elements = elements;
     }
 
     public List<String> getElements() {

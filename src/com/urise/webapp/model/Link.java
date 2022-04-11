@@ -8,7 +8,6 @@ public class Link {
 
     public Link(String name, String url) {
         Objects.requireNonNull(name, "uuid must not be null");
-        Objects.requireNonNull(url, "uuid must not be null");
         this.name = name;
         this.url = url;
     }
