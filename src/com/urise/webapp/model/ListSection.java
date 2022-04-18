@@ -27,11 +27,11 @@ public class ListSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListSection that = (ListSection) o;
-        return Objects.equals(elements, that.elements);
+        return elements.equals(that.elements);
     }
 
     @Override
     public int hashCode() {
-        return elements.hashCode();
+        return Objects.hash(elements);
     }
 }
