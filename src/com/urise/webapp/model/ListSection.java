@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ListSection extends AbstractSection {
-    List<String> elements;
+    private List<String> elements;
 
     public ListSection(List<String> elements) {
         Objects.requireNonNull(elements, "uuid must not be null");

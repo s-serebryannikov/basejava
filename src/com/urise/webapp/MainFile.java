@@ -31,18 +31,18 @@ public class MainFile {
 //        }
 
         File dir = new File("D:\\BaseJava\\basejava\\src");
-        filesFromFolder(dir);
+        getListFiles(dir);
     }
 
 
-    public static void filesFromFolder(File dir) {
+    public static void getListFiles(File dir) {
         File[] files = dir.listFiles();
 
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
                     System.out.println("Directory: " + file.getName());
-                    filesFromFolder(file);
+                    getListFiles(file);
                 } else if (file.isFile()) {
                     System.out.println("File: " + file.getName());
                 }

@@ -1,12 +1,12 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.ResumeTestDate;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -15,12 +15,15 @@ import static org.junit.Assert.assertSame;
 public abstract class AbstractStorageTest {
     protected final Storage storage;
 
-    private static final Resume RESUME_1 = new Resume("uuid1","Иван Иванов");
-    private static final Resume RESUME_2 = new Resume("uuid2","Иван Иванов");
-    private static final Resume RESUME_3 = new Resume("uuid3","Иван Иванов");
-    private static final Resume RESUME_4 = new Resume("uuid4","Иван Иванов");
-    private static final List<Resume> RESUMES = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
+//    private static final Resume RESUME_1 = new Resume("uuid1","uuid1 Name");
+//    private static final Resume RESUME_2 = new Resume("uuid2","uuid2 Name");
+//    private static final Resume RESUME_3 = new Resume("uuid3","uuid3 Name");
+//    private static final Resume RESUME_4 = new Resume("uuid4","uuid4 Name");
 
+    Resume RESUME_1 = ResumeTestDate.createResume("uuid1", "uuid1 Name");
+    Resume RESUME_2 = ResumeTestDate.createResume("uuid2", "uuid2 Name");
+    Resume RESUME_3 = ResumeTestDate.createResume("uuid3", "uuid3 Name");
+    Resume RESUME_4 = ResumeTestDate.createResume("uuid4", "uuid4 Name");
 
 
     public AbstractStorageTest(Storage storage) {
@@ -72,22 +75,21 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void updateShouldReplaceResume() {
-        Resume resume = new Resume("uuid1","Иван Сидоров");
+        Resume resume = new Resume("uuid1", "Иван Сидоров");
         storage.update(resume);
         assertSame(resume, storage.get("uuid1"));
     }
 
     @Test(expected = NotExistStorageException.class)
     public void updateShouldThrowException() {
-        Resume resume = new Resume("uuid5","Петр Иванов");
+        Resume resume = new Resume("uuid5", "Петр Иванов");
         storage.update(resume);
     }
 
     @Test
     public void getSortedAll() {
         List<Resume> list = storage.getAllSorted();
-        assertEquals(3,list.size());
-        assertEquals(list, Arrays.asList(RESUME_1,RESUME_2,RESUME_3));
+        assertEquals(3, list.size());
     }
 
     @Test

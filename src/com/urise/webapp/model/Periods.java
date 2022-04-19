@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Periods {
-    private final String title;
+    private String title;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String textInfo;
@@ -17,6 +17,28 @@ public class Periods {
         this.startDate = startDate;
         this.endDate = endDate;
         this.textInfo = textInfo;
+    }
+
+    public Periods(LocalDate startDate, LocalDate endDate, String textInfo) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.textInfo = textInfo;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getTextInfo() {
+        return textInfo;
     }
 
     @Override

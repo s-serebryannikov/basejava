@@ -1,18 +1,24 @@
 package com.urise.webapp.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Organization {
 
-    private List<Periods> periodsList = new ArrayList<>();
+    private List<Periods> periodsList;
     private final Link titleLink;
-
 
     public Organization(List<Periods> periodsList, Link titleLink) {
         this.periodsList = periodsList;
         this.titleLink = titleLink;
+    }
+
+    public List<Periods> getPeriodsList() {
+        return periodsList;
+    }
+
+    public Link getTitleLink() {
+        return titleLink;
     }
 
     @Override
