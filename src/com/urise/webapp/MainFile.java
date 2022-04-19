@@ -30,7 +30,7 @@ public class MainFile {
 //            throw new RuntimeException(e);
 //        }
 
-        File dir = new File("D:\\BaseJava\\basejava\\src");
+        File dir = new File(".\\src");
         getListFiles(dir);
     }
 
