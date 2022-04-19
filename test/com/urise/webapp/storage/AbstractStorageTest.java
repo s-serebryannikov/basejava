@@ -15,16 +15,10 @@ import static org.junit.Assert.assertSame;
 public abstract class AbstractStorageTest {
     protected final Storage storage;
 
-//    private static final Resume RESUME_1 = new Resume("uuid1","uuid1 Name");
-//    private static final Resume RESUME_2 = new Resume("uuid2","uuid2 Name");
-//    private static final Resume RESUME_3 = new Resume("uuid3","uuid3 Name");
-//    private static final Resume RESUME_4 = new Resume("uuid4","uuid4 Name");
-
-    Resume RESUME_1 = ResumeTestDate.createResume("uuid1", "uuid1 Name");
-    Resume RESUME_2 = ResumeTestDate.createResume("uuid2", "uuid2 Name");
-    Resume RESUME_3 = ResumeTestDate.createResume("uuid3", "uuid3 Name");
-    Resume RESUME_4 = ResumeTestDate.createResume("uuid4", "uuid4 Name");
-
+    private static final Resume RESUME_1 = ResumeTestDate.createResume(new Resume("uuid1","uuid1 Name"));
+    private static final Resume RESUME_2 = ResumeTestDate.createResume(new Resume("uuid2","uuid2 Name"));
+    private static final Resume RESUME_3 = ResumeTestDate.createResume(new Resume("uuid3","uuid3 Name"));
+    private static final Resume RESUME_4 = ResumeTestDate.createResume(new Resume("uuid4","uuid4 Name"));
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;

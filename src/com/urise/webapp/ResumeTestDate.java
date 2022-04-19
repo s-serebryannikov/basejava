@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class ResumeTestDate {
     public static void main(String[] args) {
-        Resume resume = createResume("uuid1", "Григорий Кислин");
+        Resume resume = createResume(new Resume("uuid1", "Григорий Кислин"));
         System.out.println(resume.getFullName() + '\n');
         Map<ContactType, String> contacts = resume.getContacts();
         for (Map.Entry<ContactType, String> contact : contacts.entrySet()) {
@@ -57,8 +57,8 @@ public class ResumeTestDate {
         }
     }
 
-    public static Resume createResume(String uuid, String name) {
-        Resume resume = new Resume(uuid, name);
+    public static Resume createResume(Resume resume) {
+//        Resume resume = new Resume(uuid, name);
 
         resume.contacts.put(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
         resume.contacts.put(ContactType.SKYPE, "grigory.kislin");

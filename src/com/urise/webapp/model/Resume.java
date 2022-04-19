@@ -40,6 +40,13 @@ public class Resume implements Comparable<Resume> {
     public String getUuid() {
         return uuid;
     }
+    public void addContact(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public void addSection(SectionType type, AbstractSection section) {
+        sections.put(type, section);
+    }
 
     @Override
     public String toString() {
