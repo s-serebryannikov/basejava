@@ -39,7 +39,7 @@ public class MainArray {
                     printAll();
                     break;
                 case "update":
-                    r = new Resume(param,params[1]);
+                    r = new Resume(param, params[1]);
                     ARRAY_STORAGE.update(r);
                     printAll();
                     break;
@@ -64,12 +64,12 @@ public class MainArray {
     }
 
     static void printAll() {
-        List<Resume> list= ARRAY_STORAGE.getAllSorted();
+        List<Resume> list = ARRAY_STORAGE.getAllSorted();
         System.out.println("----------------------------");
         if (list.size() == 0) {
             System.out.println("Empty");
         } else {
-            for (Resume r : list ){
+            for (Resume r : list) {
                 System.out.println(r);
             }
         }

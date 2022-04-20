@@ -39,15 +39,15 @@ public class ResumeTestDate {
                     }
                     System.out.println();
                 }
-                case EXPERIENCE , EDUCATION -> {
+                case EXPERIENCE, EDUCATION -> {
                     OrganizationSection organizationSection = (OrganizationSection) sectionTypeValue;
                     System.out.println(section.getKey().getTitle() + '\n');
                     for (Organization organization : organizationSection.getOrganizations()) {
                         Link titleLink = organization.getTitleLink();
                         System.out.println(titleLink.getName());
-                        for(Periods periods: organization.getPeriodsList()){
-                            System.out.println(formatter.format(periods.getStartDate())+" - "+ formatter.format(periods.getEndDate()));
-                            if(periods.getTitle()!=null) System.out.println(periods.getTitle());
+                        for (Period periods : organization.getPeriodsList()) {
+                            System.out.println(formatter.format(periods.getStartDate()) + " - " + formatter.format(periods.getEndDate()));
+                            if (periods.getTitle() != null) System.out.println(periods.getTitle());
                             System.out.println(periods.getTextInfo());
                         }
                         System.out.println();
@@ -90,32 +90,32 @@ public class ResumeTestDate {
         ListSection qualification = new ListSection(qualificationList);
 
         List<Organization> organizationsList = new ArrayList<>();
-        List<Periods> periodsListOnlineProject = new ArrayList<>();
-        periodsListOnlineProject.add(new Periods("Автор проекта", LocalDate.of(2013, Month.NOVEMBER,1), LocalDate.now(), "Создание, организация и проведение Java онлайн проектов и стажировок."));
-        periodsListOnlineProject.add(new Periods("Ментор", DateUtil.of(2015, Month.NOVEMBER), LocalDate.now(), "Ревью кода, менторство."));
+        List<Period> periodsListOnlineProject = new ArrayList<>();
+        periodsListOnlineProject.add(new Period("Автор проекта", LocalDate.of(2013, Month.NOVEMBER, 1), LocalDate.now(), "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        periodsListOnlineProject.add(new Period("Ментор", DateUtil.of(2015, Month.NOVEMBER), LocalDate.now(), "Ревью кода, менторство."));
         organizationsList.add(new Organization(periodsListOnlineProject, new Link("Java Online Projects", "https://javaops.ru/")));
 
-        List<Periods> periodsListWrike = new ArrayList<>();
-        periodsListWrike.add(new Periods("Старший разработчик (backend)", LocalDate.of(2014, Month.NOVEMBER,1), LocalDate.of(2016, Month.JANUARY,1), "Проектирование и разработка онлайн платформы управления проектами Wrike"));
+        List<Period> periodsListWrike = new ArrayList<>();
+        periodsListWrike.add(new Period("Старший разработчик (backend)", LocalDate.of(2014, Month.NOVEMBER, 1), LocalDate.of(2016, Month.JANUARY, 1), "Проектирование и разработка онлайн платформы управления проектами Wrike"));
         organizationsList.add(new Organization(periodsListWrike, new Link("Wrike", "https://www.wrike.com/vm/")));
 
-        List<Periods> periodsListRIT = new ArrayList<>();
-        periodsListRIT.add(new Periods("Java Архитектор", LocalDate.of(2012, Month.APRIL,1), LocalDate.of(2014, Month.NOVEMBER,1), "Организация процесса разработки системы ERP для разных окружений"));
+        List<Period> periodsListRIT = new ArrayList<>();
+        periodsListRIT.add(new Period("Java Архитектор", LocalDate.of(2012, Month.APRIL, 1), LocalDate.of(2014, Month.NOVEMBER, 1), "Организация процесса разработки системы ERP для разных окружений"));
         organizationsList.add(new Organization(periodsListRIT, new Link("Wrike", "https://www.RIT.com/vm/")));
 
         OrganizationSection experience = new OrganizationSection(organizationsList);
 
         List<Organization> educationList = new ArrayList<>();
-        List<Periods> periodsListCousera = new ArrayList<>();
-        periodsListCousera.add(new Periods(LocalDate.of(2013, Month.MARCH,1), LocalDate.of(2013, Month.MAY,1), "\"Functional Programming Principles in Scala\" by Martin Odersky"));
+        List<Period> periodsListCousera = new ArrayList<>();
+        periodsListCousera.add(new Period(LocalDate.of(2013, Month.MARCH, 1), LocalDate.of(2013, Month.MAY, 1), "\"Functional Programming Principles in Scala\" by Martin Odersky"));
         educationList.add(new Organization(periodsListCousera, new Link("Coursera", "https://www.coursera.org/learn/scala-functional-programming")));
 
-        List<Periods> periodsListLuxoft = new ArrayList<>();
-        periodsListLuxoft.add(new Periods( LocalDate.of(2011, Month.MARCH,1), LocalDate.of(2011, Month.APRIL,1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""));
+        List<Period> periodsListLuxoft = new ArrayList<>();
+        periodsListLuxoft.add(new Period(LocalDate.of(2011, Month.MARCH, 1), LocalDate.of(2011, Month.APRIL, 1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""));
         educationList.add(new Organization(periodsListLuxoft, new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html")));
 
-        List<Periods> periodsListSiemens = new ArrayList<>();
-        periodsListSiemens.add(new Periods(LocalDate.of(2005, Month.JANUARY,1), LocalDate.of(2005, Month.APRIL,1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""));
+        List<Period> periodsListSiemens = new ArrayList<>();
+        periodsListSiemens.add(new Period(LocalDate.of(2005, Month.JANUARY, 1), LocalDate.of(2005, Month.APRIL, 1), "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""));
         educationList.add(new Organization(periodsListSiemens, new Link("Siemens AG", "https://new.siemens.com/ru/ru.html")));
         OrganizationSection education = new OrganizationSection(educationList);
 

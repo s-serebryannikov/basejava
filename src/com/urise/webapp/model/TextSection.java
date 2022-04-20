@@ -2,7 +2,7 @@ package com.urise.webapp.model;
 
 import java.util.Objects;
 
-public class TextSection extends AbstractSection{
+public class TextSection extends AbstractSection {
 
     private final String content;
 

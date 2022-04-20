@@ -6,13 +6,13 @@ public class TestSingleton {
     private static TestSingleton ourInstance;
 
     public static TestSingleton getInstance() {
-        if (ourInstance==null){
+        if (ourInstance == null) {
             ourInstance = new TestSingleton();
         }
         return ourInstance;
     }
 
-    private TestSingleton(){
+    private TestSingleton() {
 
     }
 
@@ -21,12 +21,12 @@ public class TestSingleton {
         Singleton instance = Singleton.valueOf("INSTANCE");
         System.out.println(instance.ordinal());
 
-        for (SectionType type:SectionType.values()){
+        for (SectionType type : SectionType.values()) {
             System.out.println(type.getTitle());
         }
     }
 
-    public enum Singleton{
+    public enum Singleton {
         INSTANCE
     }
 }

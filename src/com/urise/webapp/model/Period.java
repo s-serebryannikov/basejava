@@ -3,13 +3,13 @@ package com.urise.webapp.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class Periods {
+public class Period {
     private String title;
     private final LocalDate startDate;
     private final LocalDate endDate;
     private final String textInfo;
 
-    public Periods(String title, LocalDate startDate, LocalDate endDate, String textInfo) {
+    public Period(String title, LocalDate startDate, LocalDate endDate, String textInfo) {
         Objects.requireNonNull(startDate, "startDate must not be null");
         Objects.requireNonNull(endDate, "endDate must not be null");
         Objects.requireNonNull(title, "title must not be null");
@@ -19,7 +19,7 @@ public class Periods {
         this.textInfo = textInfo;
     }
 
-    public Periods(LocalDate startDate, LocalDate endDate, String textInfo) {
+    public Period(LocalDate startDate, LocalDate endDate, String textInfo) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.textInfo = textInfo;
@@ -45,7 +45,7 @@ public class Periods {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Periods periods = (Periods) o;
+        Period periods = (Period) o;
         return Objects.equals(title, periods.title) && Objects.equals(startDate, periods.startDate) && Objects.equals(endDate, periods.endDate) && Objects.equals(textInfo, periods.textInfo);
     }
 

@@ -30,11 +30,11 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected List<Resume> receiveListResumes() {
         File[] files = directory.listFiles();
-        if(files == null){
+        if (files == null) {
             throw new StorageException("Directory writing error", null);
         }
         List<Resume> list = new ArrayList<>();
-        for(File file : files){
+        for (File file : files) {
             list.add(getResume(file));
         }
         return list;
@@ -62,7 +62,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void deleteResume(File file) {
-        if(!file.delete()){
+        if (!file.delete()) {
             throw new StorageException("File delete error", file.getName());
         }
     }

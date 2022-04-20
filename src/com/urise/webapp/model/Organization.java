@@ -5,15 +5,15 @@ import java.util.Objects;
 
 public class Organization {
 
-    private List<Periods> periodsList;
+    private List<Period> periodsList;
     private final Link titleLink;
 
-    public Organization(List<Periods> periodsList, Link titleLink) {
+    public Organization(List<Period> periodsList, Link titleLink) {
         this.periodsList = periodsList;
         this.titleLink = titleLink;
     }
 
-    public List<Periods> getPeriodsList() {
+    public List<Period> getPeriodsList() {
         return periodsList;
     }
 

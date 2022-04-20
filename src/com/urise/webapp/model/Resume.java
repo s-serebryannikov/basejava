@@ -18,19 +18,19 @@ public class Resume implements Comparable<Resume> {
         this(UUID.randomUUID().toString(), fullName);
     }
 
+    public Resume(String uuid, String fullName) {
+        Objects.requireNonNull(uuid, "uuid must not be null");
+        Objects.requireNonNull(fullName, "fullname must not be null");
+        this.uuid = uuid;
+        this.fullName = fullName;
+    }
+
     public Map<ContactType, String> getContacts() {
         return contacts;
     }
 
     public Map<SectionType, AbstractSection> getSections() {
         return sections;
-    }
-
-    public Resume(String uuid, String fullName) {
-        Objects.requireNonNull(uuid, "uuid must not be null");
-        Objects.requireNonNull(fullName, "fullname must not be null");
-        this.uuid = uuid;
-        this.fullName = fullName;
     }
 
     public String getFullName() {
@@ -40,6 +40,7 @@ public class Resume implements Comparable<Resume> {
     public String getUuid() {
         return uuid;
     }
+
     public void addContact(ContactType type, String value) {
         contacts.put(type, value);
     }
@@ -53,7 +54,7 @@ public class Resume implements Comparable<Resume> {
         return "Resume " +
                 "uuid='" + uuid + '\'' +
                 " fullName='" + fullName + '\n' +
-                " contacts=" + contacts +'\n'+
+                " contacts=" + contacts + '\n' +
                 " sections=" + sections;
     }
 
