@@ -24,7 +24,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    public void saveResume(Resume r, Integer index) {
+    public void doSave(Resume r, Integer index) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         }
@@ -33,24 +33,24 @@ public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    public Resume getResume(Integer index) {
+    public Resume doGet(Integer index) {
         return storage[index];
     }
 
     @Override
-    public void deleteResume(Integer index) {
+    public void doDelete(Integer index) {
         deleteFromArray(index);
         storage[size - 1] = null;
         size--;
     }
 
     @Override
-    public void updateResume(Resume r, Integer index) {
+    public void doUpdate(Resume r, Integer index) {
         storage[index] = r;
     }
 
     @Override
-    protected List<Resume> receiveListResumes() {
+    protected List<Resume> doCopyAll() {
         return Arrays.asList(Arrays.copyOf(storage, size));
     }
 

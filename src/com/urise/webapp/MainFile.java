@@ -31,20 +31,20 @@ public class MainFile {
 //        }
 
         File dir = new File(".\\src");
-        getListFiles(dir);
+        printDirectoryDeeply(dir);
     }
 
 
-    public static void getListFiles(File dir) {
+    public static void printDirectoryDeeply(File dir) {
         File[] files = dir.listFiles();
 
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
                     System.out.println("Directory: " + file.getName());
-                    getListFiles(file);
+                    printDirectoryDeeply(file);
                 } else if (file.isFile()) {
-                    System.out.println("File: " + file.getName());
+                    System.out.println("    File: " + file.getName());
                 }
             }
         }

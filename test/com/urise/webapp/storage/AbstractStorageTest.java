@@ -7,21 +7,18 @@ import com.urise.webapp.model.Resume;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("D:\\BaseJava\\basejava\\storage");
     protected final Storage storage;
 
-    //    private static final Resume RESUME_1 = ResumeTestDate.createResume(new Resume("uuid1", "uuid1 Name"));
-//    private static final Resume RESUME_2 = ResumeTestDate.createResume(new Resume("uuid2", "uuid2 Name"));
-//    private static final Resume RESUME_3 = ResumeTestDate.createResume(new Resume("uuid3", "uuid3 Name"));
-//    private static final Resume RESUME_4 = ResumeTestDate.createResume(new Resume("uuid4", "uuid4 Name"));
     private final Resume RESUME_1;
-    private final Resume RESUME_2 ;
+    private final Resume RESUME_2;
     private final Resume RESUME_3;
     private final Resume RESUME_4;
 
@@ -80,7 +77,7 @@ public abstract class AbstractStorageTest {
     public void updateShouldReplaceResume() {
         Resume resume = new Resume("uuid1", "Иван Сидоров");
         storage.update(resume);
-        assertSame(resume, storage.get("uuid1"));
+        assertTrue(resume.equals(storage.get("uuid1")));
     }
 
     @Test(expected = NotExistStorageException.class)

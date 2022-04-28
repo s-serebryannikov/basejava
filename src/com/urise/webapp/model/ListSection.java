@@ -1,24 +1,30 @@
 package com.urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class ListSection extends AbstractSection {
-    private List<String> elements;
+    private static final long serialVersionUID = 1L;
+    private List<String> items;
+
+    public ListSection(String... items) {
+        this(Arrays.asList(items));
+    }
 
     public ListSection(List<String> elements) {
         Objects.requireNonNull(elements, "uuid must not be null");
-        this.elements = elements;
+        this.items = elements;
     }
 
-    public List<String> getElements() {
-        return elements;
+    public List<String> getItems() {
+        return items;
     }
 
     @Override
     public String toString() {
         return "ListSection{" +
-                "elements=" + elements +
+                "elements=" + items +
                 '}';
     }
 
@@ -27,11 +33,11 @@ public class ListSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListSection that = (ListSection) o;
-        return elements.equals(that.elements);
+        return items.equals(that.items);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(elements);
+        return Objects.hash(items);
     }
 }

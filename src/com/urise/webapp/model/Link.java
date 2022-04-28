@@ -1,10 +1,12 @@
 package com.urise.webapp.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Link {
-    private String name;
-    private String url;
+public class Link implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private final String name;
+    private final String url;
 
     public Link(String name, String url) {
         Objects.requireNonNull(name, "uuid must not be null");
@@ -14,10 +16,6 @@ public class Link {
 
     public String getName() {
         return name;
-    }
-
-    public String getUrl() {
-        return url;
     }
 
     @Override

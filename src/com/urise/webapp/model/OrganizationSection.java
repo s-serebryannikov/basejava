@@ -1,10 +1,16 @@
 package com.urise.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class OrganizationSection extends AbstractSection {
+    private static final long serialVersionUID = 1L;
     private final List<Organization> organizations;
+
+    public OrganizationSection(Organization... organization) {
+        this(Arrays.asList(organization));
+    }
 
     public OrganizationSection(List<Organization> organizations) {
         Objects.requireNonNull(organizations, "organizations must not be null");
