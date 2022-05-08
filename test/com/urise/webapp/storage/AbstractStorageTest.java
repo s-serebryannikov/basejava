@@ -11,7 +11,8 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("D:\\BaseJava\\basejava\\storage");
@@ -88,9 +89,9 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getSortedAll() {
-        List<Resume> list = Arrays.asList(RESUME_1, RESUME_2, RESUME_3);
-        assertEquals(3, storage.getAllSorted().size());
-        assertEquals(list, storage.getAllSorted());
+        List<Resume> list = storage.getAllSorted();
+        assertEquals(3, list.size());
+        assertEquals(list, Arrays.asList(RESUME_1, RESUME_2, RESUME_3));
     }
 
     @Test

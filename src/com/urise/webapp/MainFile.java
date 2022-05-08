@@ -30,23 +30,53 @@ public class MainFile {
 //            throw new RuntimeException(e);
 //        }
 
-        File dir = new File(".\\src");
-        printDirectoryDeeply(dir);
+//        File dir = new File(".\\src");
+//        printDirectoryDeeply(dir);
+        doRecurs(new File(".\\src"), 0);
     }
 
 
-    public static void printDirectoryDeeply(File dir) {
-        File[] files = dir.listFiles();
+    //    public static void printDirectoryDeeply(File dir) {
+//        File[] files = dir.listFiles();
+//
+//        if (files != null) {
+//            for (File file : files) {
+//                if (file.isDirectory()) {
+//                    System.out.println("Directory: " + file.getName());
+//                    printDirectoryDeeply(file);
+//                } else if (file.isFile()) {
+//                    System.out.println("    File: " + file.getName());
+//                }
+//            }
+//        }
+//    }
 
-        if (files != null) {
-            for (File file : files) {
-                if (file.isDirectory()) {
-                    System.out.println("Directory: " + file.getName());
-                    printDirectoryDeeply(file);
-                } else if (file.isFile()) {
-                    System.out.println("    File: " + file.getName());
+
+    static String repeat(int n, String value) {
+        return new String(new char[n]).replace("\0", value);
+    }
+
+    static void doRecurs(File dir, int level) {
+        final String indent = repeat(level, "   ");
+
+        if (dir.isDirectory()) {
+            File[] list = dir.listFiles();
+            if (list == null)
+                return;
+
+            for (File name : list) {
+                if (name.isFile()) {
+                    System.out.println(indent + "File - " + name.getName());
+                } else {
+                    System.out.println(indent + "Directory - " + name.getName());
+                    doRecurs(name, level + 1);
                 }
             }
+
+        } else {
+            System.out.println(dir.getName() + " не является папкой");
         }
     }
+
+
 }
