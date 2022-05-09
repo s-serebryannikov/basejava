@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class AbstractFileStorage extends AbstractStorage<File> {
+public class FileStorage extends AbstractStorage<File> {
     private final File directory;
     private StorageStrategy storageStrategy;
 
-    protected AbstractFileStorage(File directory, StorageStrategy storageStrategy) {
+    protected FileStorage(File directory, StorageStrategy storageStrategy) {
         Objects.requireNonNull(directory, "directory must not be null");
         this.storageStrategy = storageStrategy;
         if (!directory.isDirectory()) {
@@ -26,10 +26,7 @@ public class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        File[] files = directory.listFiles();
-        if (files == null) {
-            throw new StorageException("Directory writing error", null);
-        }
+        File[] files = getFileArray();
         List<Resume> list = new ArrayList<>(files.length);
         for (File file : files) {
             list.add(doGet(file));
@@ -39,11 +36,9 @@ public class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
-        File[] files = directory.listFiles();
-        if (files != null) {
-            for (File file : files) {
-                doDelete(file);
-            }
+    File[] files = getFileArray();
+        for (File file : files) {
+            doDelete(file);
         }
     }
 
@@ -84,11 +79,7 @@ public class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public int size() {
-        String[] files = directory.list();
-        if (files != null) {
-            return files.length;
-        }
-        throw new StorageException("The directory is empty", null);
+        return getFileArray().length;
     }
 
     @Override
@@ -101,4 +92,11 @@ public class AbstractFileStorage extends AbstractStorage<File> {
         return new File(directory, uuid);
     }
 
+    private File[] getFileArray() {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("The directory is empty", null);
+        }
+        return files;
+    }
 }
