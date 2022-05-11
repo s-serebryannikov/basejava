@@ -3,7 +3,6 @@ package com.urise.webapp;
 import com.urise.webapp.model.*;
 import com.urise.webapp.util.DateUtil;
 
-import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -93,31 +92,31 @@ public class ResumeTestDate {
 
         List<Organization> organizationsList = new ArrayList<>();
         List<Organization.Position> periodsListOnlineProject = new ArrayList<>();
-        periodsListOnlineProject.add(new Organization.Position(LocalDate.of(2013, Month.NOVEMBER, 1), NOW, "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
+        periodsListOnlineProject.add(new Organization.Position(DateUtil.of(2013, Month.NOVEMBER), NOW, "Автор проекта", "Создание, организация и проведение Java онлайн проектов и стажировок."));
         periodsListOnlineProject.add(new Organization.Position(DateUtil.of(2015, Month.NOVEMBER), NOW, "Ментор", "Ревью кода, менторство."));
         organizationsList.add(new Organization(new Link("Java Online Projects", "https://javaops.ru/"), periodsListOnlineProject));
 
         List<Organization.Position> periodsListWrike = new ArrayList<>();
-        periodsListWrike.add(new Organization.Position(LocalDate.of(2014, Month.NOVEMBER, 1), LocalDate.of(2016, Month.JANUARY, 1), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike"));
+        periodsListWrike.add(new Organization.Position(DateUtil.of(2014, Month.NOVEMBER), DateUtil.of(2016, Month.JANUARY), "Старший разработчик (backend)", "Проектирование и разработка онлайн платформы управления проектами Wrike"));
         organizationsList.add(new Organization(new Link("Wrike", "https://www.wrike.com/vm/"), periodsListWrike));
 
         List<Organization.Position> periodsListRIT = new ArrayList<>();
-        periodsListRIT.add(new Organization.Position(LocalDate.of(2012, Month.APRIL, 1), LocalDate.of(2014, Month.NOVEMBER, 1), "Java Архитектор", "Организация процесса разработки системы ERP для разных окружений"));
+        periodsListRIT.add(new Organization.Position(DateUtil.of(2012, Month.APRIL), DateUtil.of(2014, Month.NOVEMBER), "Java Архитектор", "Организация процесса разработки системы ERP для разных окружений"));
         organizationsList.add(new Organization(new Link("Wrike", "https://www.RIT.com/vm/"), periodsListRIT));
 
         OrganizationSection experience = new OrganizationSection(organizationsList);
 
         List<Organization> educationList = new ArrayList<>();
         List<Organization.Position> periodsListCousera = new ArrayList<>();
-        periodsListCousera.add(new Organization.Position(LocalDate.of(2013, Month.MARCH, 1), LocalDate.of(2013, Month.MAY, 1), "", "\"Functional Programming Principles in Scala\" by Martin Odersky"));
+        periodsListCousera.add(new Organization.Position(DateUtil.of(2013, Month.MARCH), DateUtil.of(2013, Month.MAY), "", "\"Functional Programming Principles in Scala\" by Martin Odersky"));
         educationList.add(new Organization(new Link("Coursera", "https://www.coursera.org/learn/scala-functional-programming"), periodsListCousera));
 
         List<Organization.Position> periodsListLuxoft = new ArrayList<>();
-        periodsListLuxoft.add(new Organization.Position(LocalDate.of(2011, Month.MARCH, 1), LocalDate.of(2011, Month.APRIL, 1), "", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""));
+        periodsListLuxoft.add(new Organization.Position(DateUtil.of(2011, Month.MARCH), DateUtil.of(2011, Month.APRIL), "", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""));
         educationList.add(new Organization(new Link("Luxoft", "https://www.luxoft-training.ru/kurs/obektno-orientirovannyy_analiz_i_proektirovanie_na_uml.html"), periodsListLuxoft));
 
         List<Organization.Position> periodsListSiemens = new ArrayList<>();
-        periodsListSiemens.add(new Organization.Position(LocalDate.of(2005, Month.JANUARY, 1), LocalDate.of(2005, Month.APRIL, 1), "", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""));
+        periodsListSiemens.add(new Organization.Position(DateUtil.of(2005, Month.JANUARY), DateUtil.of(2005, Month.APRIL), "", "Курс \"Объектно-ориентированный анализ ИС. Концептуальное моделирование на UML.\""));
         educationList.add(new Organization(new Link("Siemens AG", "https://new.siemens.com/ru/ru.html"), periodsListSiemens));
         OrganizationSection education = new OrganizationSection(educationList);
 

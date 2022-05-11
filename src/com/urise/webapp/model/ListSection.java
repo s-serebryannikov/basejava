@@ -12,6 +12,9 @@ public class ListSection extends AbstractSection {
         this(Arrays.asList(items));
     }
 
+    public ListSection() {
+    }
+
     public ListSection(List<String> elements) {
         Objects.requireNonNull(elements, "uuid must not be null");
         this.items = elements;

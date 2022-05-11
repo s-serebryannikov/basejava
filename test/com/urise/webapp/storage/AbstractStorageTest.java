@@ -60,6 +60,8 @@ public abstract class AbstractStorageTest {
     @Test
     public void getShouldReturnResume() {
         assertEquals(RESUME_1, storage.get(RESUME_1.getUuid()));
+        assertEquals(RESUME_2, storage.get(RESUME_2.getUuid()));
+        assertEquals(RESUME_3, storage.get(RESUME_3.getUuid()));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -69,9 +71,9 @@ public abstract class AbstractStorageTest {
 
     @Test(expected = NotExistStorageException.class)
     public void deleteShouldRemoveResume() {
-        storage.delete("uuid2");
+        storage.delete("uuid1");
         assertEquals(2, storage.size());
-        storage.get("uuid2");
+        storage.get("uuid1");
     }
 
     @Test
