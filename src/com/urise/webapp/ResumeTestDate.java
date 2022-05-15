@@ -4,63 +4,61 @@ import com.urise.webapp.model.*;
 import com.urise.webapp.util.DateUtil;
 
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static com.urise.webapp.util.DateUtil.NOW;
 
 public class ResumeTestDate {
-    public static void main(String[] args) {
-        Resume resume = createResume(new Resume("uuid1", "Григорий Кислин"));
-        System.out.println(resume.getFullName() + '\n');
-        Map<ContactType, String> contacts = resume.getContacts();
-        for (Map.Entry<ContactType, String> contact : contacts.entrySet()) {
-            System.out.println(contact.getKey().getTitle() + " - " + contact.getValue());
-        }
-        System.out.println();
+//    public static void main(String[] args) {
+//        Resume resume = createResume(new Resume("uuid1", "Григорий Кислин"));
+//        System.out.println(resume.getFullName() + '\n');
+//        Map<ContactType, String> contacts = resume.getContacts();
+//        for (Map.Entry<ContactType, String> contact : contacts.entrySet()) {
+//            System.out.println(contact.getKey().getTitle() + " - " + contact.getValue());
+//        }
+//        System.out.println();
+//
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+//
+//        Map<SectionType, AbstractSection> sections = resume.getSections();
+//        for (Map.Entry<SectionType, AbstractSection> section : sections.entrySet()) {
+//            SectionType sectionTypeKey = section.getKey();
+//            AbstractSection sectionTypeValue = section.getValue();
+//            switch (sectionTypeKey) {
+//                case OBJECTIVE, PERSONAL -> {
+//                    TextSection textSection = (TextSection) sectionTypeValue;
+//                    System.out.println(section.getKey().getTitle() + '\n' + textSection.getContent() + '\n');
+//                }
+//                case ACHIEVEMENT, QUALIFICATION -> {
+//                    ListSection listSectionText = (ListSection) sectionTypeValue;
+//                    System.out.println(section.getKey().getTitle() + '\n');
+//                    for (String str : listSectionText.getContent()) {
+//                        System.out.println(str);
+//                    }
+//                    System.out.println();
+//                }
+//                case EXPERIENCE, EDUCATION -> {
+//                    OrganizationSection organizationSection = (OrganizationSection) sectionTypeValue;
+//                    System.out.println(section.getKey().getTitle() + '\n');
+//                    for (Organization organization : organizationSection.getOrganizations()) {
+//                        Link titleLink = organization.getHomePage();
+//                        System.out.println(titleLink.getName());
+//                        for (Organization.Position periods : organization.getPositions()) {
+//                            System.out.println(formatter.format(periods.getStartDate()) + " - " + formatter.format(periods.getEndDate()));
+//                            if (periods.getTitle() != null) System.out.println(periods.getTitle());
+//                            System.out.println(periods.getDiscription());
+//                        }
+//                        System.out.println();
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
+    public static Resume createResume(String uuid,String fullName) {
 
-        Map<SectionType, AbstractSection> sections = resume.getSections();
-        for (Map.Entry<SectionType, AbstractSection> section : sections.entrySet()) {
-            SectionType sectionTypeKey = section.getKey();
-            AbstractSection sectionTypeValue = section.getValue();
-            switch (sectionTypeKey) {
-                case OBJECTIVE, PERSONAL -> {
-                    TextSection textSection = (TextSection) sectionTypeValue;
-                    System.out.println(section.getKey().getTitle() + '\n' + textSection.getContent() + '\n');
-                }
-                case ACHIEVEMENT, QUALIFICATION -> {
-                    ListSection listSectionText = (ListSection) sectionTypeValue;
-                    System.out.println(section.getKey().getTitle() + '\n');
-                    for (String str : listSectionText.getItems()) {
-                        System.out.println(str);
-                    }
-                    System.out.println();
-                }
-                case EXPERIENCE, EDUCATION -> {
-                    OrganizationSection organizationSection = (OrganizationSection) sectionTypeValue;
-                    System.out.println(section.getKey().getTitle() + '\n');
-                    for (Organization organization : organizationSection.getOrganizations()) {
-                        Link titleLink = organization.getHomePage();
-                        System.out.println(titleLink.getName());
-                        for (Organization.Position periods : organization.getPositions()) {
-                            System.out.println(formatter.format(periods.getStartDate()) + " - " + formatter.format(periods.getEndDate()));
-                            if (periods.getTitle() != null) System.out.println(periods.getTitle());
-                            System.out.println(periods.getDiscription());
-                        }
-                        System.out.println();
-                    }
-                }
-            }
-        }
-    }
-
-    public static Resume createResume(Resume resume) {
-
-
+        Resume resume = new Resume(uuid,fullName);
         resume.contacts.put(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
         resume.contacts.put(ContactType.SKYPE, "grigory.kislin");
         resume.contacts.put(ContactType.MAIL, "gkislin@yandex.ru");
@@ -68,9 +66,8 @@ public class ResumeTestDate {
         resume.contacts.put(ContactType.GITHUB, "Профиль GitHub");
         resume.contacts.put(ContactType.STACKOVERFLOW, "Профиль Stackoverflow");
 
-        TextSection objective = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
-
         TextSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
+        TextSection objective = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
 
         List<String> achievementList = new ArrayList<>();
         achievementList.add("С 2013 года: разработка проектов \"Разработка Web приложения\",\"Java Enterprise\", \"Многомодульный maven. Многопоточность. XML (JAXB/StAX). Веб сервисы (JAX-RS/SOAP). Удаленное взаимодействие (JMS/AKKA)\". Организация онлайн стажировок и ведение проектов. Более 1000 выпускников.");

@@ -25,10 +25,10 @@ public abstract class AbstractStorageTest {
 
     public AbstractStorageTest(Storage storage) {
         this.storage = storage;
-        RESUME_1 = ResumeTestDate.createResume(new Resume("uuid1", "uuid1 Name"));
-        RESUME_2 = ResumeTestDate.createResume(new Resume("uuid2", "uuid2 Name"));
-        RESUME_3 = ResumeTestDate.createResume(new Resume("uuid3", "uuid3 Name"));
-        RESUME_4 = ResumeTestDate.createResume(new Resume("uuid4", "uuid4 Name"));
+        RESUME_1 = ResumeTestDate.createResume("uuid1", "uuid1 Name");
+        RESUME_2 = ResumeTestDate.createResume("uuid2", "uuid2 Name");
+        RESUME_3 = ResumeTestDate.createResume("uuid3", "uuid3 Name");
+        RESUME_4 = ResumeTestDate.createResume("uuid4", "uuid4 Name");
     }
 
     @Before
@@ -59,8 +59,6 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getShouldReturnResume() {
-        assertEquals(RESUME_1, storage.get(RESUME_1.getUuid()));
-        assertEquals(RESUME_2, storage.get(RESUME_2.getUuid()));
         assertEquals(RESUME_3, storage.get(RESUME_3.getUuid()));
     }
 

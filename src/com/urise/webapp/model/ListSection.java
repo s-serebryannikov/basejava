@@ -6,28 +6,28 @@ import java.util.Objects;
 
 public class ListSection extends AbstractSection {
     private static final long serialVersionUID = 1L;
-    private List<String> items;
+    private List<String> content;
+
+    public ListSection() {
+    }
 
     public ListSection(String... items) {
         this(Arrays.asList(items));
     }
 
-    public ListSection() {
-    }
-
     public ListSection(List<String> elements) {
         Objects.requireNonNull(elements, "uuid must not be null");
-        this.items = elements;
+        this.content = elements;
     }
 
-    public List<String> getItems() {
-        return items;
+    public List<String> getContent() {
+        return content;
     }
 
     @Override
     public String toString() {
         return "ListSection{" +
-                "elements=" + items +
+                "elements=" + content +
                 '}';
     }
 
@@ -36,11 +36,11 @@ public class ListSection extends AbstractSection {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ListSection that = (ListSection) o;
-        return items.equals(that.items);
+        return content.equals(that.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(items);
+        return Objects.hash(content);
     }
 }
