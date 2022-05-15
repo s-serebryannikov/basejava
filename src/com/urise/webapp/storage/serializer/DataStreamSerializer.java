@@ -112,7 +112,6 @@ public class DataStreamSerializer implements StreamSerializer {
         return resume;
     }
 
-
     private void writeLocalDate(DataOutputStream dos, LocalDate ld) throws IOException {
         dos.writeInt(ld.getYear());
         dos.writeInt(ld.getMonth().getValue());
@@ -121,13 +120,4 @@ public class DataStreamSerializer implements StreamSerializer {
     private LocalDate readLocalDate(DataInputStream dis) throws IOException {
         return DateUtil.of(dis.readInt(), Month.of(dis.readInt()));
     }
-
-//    private <T> List<T> readList(DataInputStream dis, ReaderWithType<T> reader) throws IOException {
-//        List<T> list = new ArrayList<>();
-//        int size = dis.readInt();
-//        for (int i = 0; i < size; i++) {
-//            list.add(reader.readElement());
-//        }
-//        return list;
-//    }
 }
