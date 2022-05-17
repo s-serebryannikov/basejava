@@ -9,7 +9,6 @@ import java.time.Month;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 public class DataStreamSerializer implements StreamSerializer {
 
@@ -18,16 +17,12 @@ public class DataStreamSerializer implements StreamSerializer {
         try (DataOutputStream dos = new DataOutputStream(os)) {
             dos.writeUTF(r.getUuid());//write DataOutputStream uuid
             dos.writeUTF(r.getFullName());//write DataOutputStream fullname
-            Map<ContactType, String> contacts = r.getContacts();//create Map contacts
-            dos.writeInt(contacts.size());//write DataOutputStream contacts size
-            for (Map.Entry<ContactType, String> entry : contacts.entrySet()) {
-                dos.writeUTF(entry.getKey().name());//write DataOutputStream contact title
-                dos.writeUTF(entry.getValue());//write DataOutputStream contact info
-            }
+            writerCollection(dos, r.getContacts().entrySet(), contact -> {//create Map contacts
+                dos.writeUTF(contact.getKey().name());
+                dos.writeUTF(contact.getValue());
+            });
 
-            Map<SectionType, AbstractSection> sections = r.getSections();//create Map sections
-            dos.writeInt(sections.size());//write DataOutputStream sections size
-            for (Map.Entry<SectionType, AbstractSection> section : sections.entrySet()) {
+            writerCollection(dos, r.getSections().entrySet(), section -> {
                 SectionType sectionType = section.getKey();//write DataOutputStream section type
                 dos.writeUTF(String.valueOf(sectionType));//write DataOutputStream section value
                 AbstractSection sectionTypeValue = section.getValue();
@@ -50,7 +45,7 @@ public class DataStreamSerializer implements StreamSerializer {
                                 });
                             });
                 }
-            }
+            });
         }
     }
 
@@ -58,26 +53,26 @@ public class DataStreamSerializer implements StreamSerializer {
     public Resume doRead(InputStream is) throws IOException {
         Resume resume;
         try (DataInputStream dis = new DataInputStream(is)) {
-            String uuid = dis.readUTF();
-            String fullName = dis.readUTF();
-            resume = new Resume(uuid, fullName);
-            readCollection(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));
-            int sectionSize = dis.readInt();
-            for (int i = 0; i < sectionSize; i++) {
-                SectionType sectionType = SectionType.valueOf(dis.readUTF());
+            String uuid = dis.readUTF();//read uuid resume
+            String fullName = dis.readUTF();//read fullName resume
+            resume = new Resume(uuid, fullName);//initialization filds resume
+            readCollection(dis, () -> resume.addContact(ContactType.valueOf(dis.readUTF()), dis.readUTF()));//read fields Contact Type and add in resume
+            readCollection(dis, () -> {
+                SectionType sectionType = SectionType.valueOf(dis.readUTF());//read type sections
                 switch (sectionType) {
-                    case OBJECTIVE, PERSONAL -> resume.addSection(sectionType, new TextSection(dis.readUTF()));
+                    case OBJECTIVE, PERSONAL ->
+                            resume.addSection(sectionType, new TextSection(dis.readUTF()));//read Text Section
                     case ACHIEVEMENT, QUALIFICATION ->
-                            resume.addSection(sectionType, new ListSection(readList(dis, dis::readUTF)));
+                            resume.addSection(sectionType, new ListSection(readList(dis, dis::readUTF)));//read List Section
                     case EXPERIENCE, EDUCATION -> {
                         List<Organization> listOrg = new ArrayList<>();
                         readCollection(dis, () -> listOrg.add(new Organization(new Link(dis.readUTF(), dis.readUTF()),
                                 readList(dis, () -> new Organization.Position(readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()))
                         )));
-                        resume.addSection(sectionType, new OrganizationSection(listOrg));
+                        resume.addSection(sectionType, new OrganizationSection(listOrg));//add in resume sectionType
                     }
                 }
-            }
+            });
         }
         return resume;
     }
@@ -94,7 +89,6 @@ public class DataStreamSerializer implements StreamSerializer {
     private interface WriterType<T> {
         void writerItem(T sectionType) throws IOException;
     }
-
 
     private interface ReaderType {
         void read() throws IOException;
