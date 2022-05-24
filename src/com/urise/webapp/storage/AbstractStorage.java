@@ -27,6 +27,7 @@ public abstract class AbstractStorage<SK> implements Storage {
 
     protected abstract Resume doGet(SK searchKey);
 
+
     @Override
     public void save(Resume r) {
         LOG.info("Save " + r);

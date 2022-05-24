@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <resume>
-    <uuid>uuid3</uuid>
-    <fullName>uuid3 Name</fullName>
+    <uuid>uuid1</uuid>
+    <fullName>uuid1 Name</fullName>
     <contacts>
         <entry>
             <key>PHONE_NUMBER</key>
