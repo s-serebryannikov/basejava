@@ -14,13 +14,13 @@ public class MainDeadLock {
 
 class Thread1 extends Thread{
     public void run(){
-        System.out.println("Thread10 - Попытка захватить монитор объекта Lock1");
+        System.out.println("Thread1 - Попытка захватить монитор объекта Lock1");
         synchronized (MainDeadLock.lock1){
-            System.out.println("Thread10 - Монитор объекта Lock1 захвачен");
+            System.out.println("Thread1 - Монитор объекта Lock1 захвачен");
 
-            System.out.println("Thread10 - Попытка захватить монитор объекта Lock2");
+            System.out.println("Thread1 - Попытка захватить монитор объекта Lock2");
             synchronized (MainDeadLock.lock2){
-                System.out.println("Thread10 - Мониторы объектов Lock1 и Lock2 захвачены");
+                System.out.println("Thread1 - Мониторы объектов Lock1 и Lock2 захвачены");
             }
         }
     }
@@ -28,13 +28,13 @@ class Thread1 extends Thread{
 
 class Thread2 extends Thread{
     public void run(){
-        System.out.println("Thread20 - Попытка захватить монитор объекта Lock2");
+        System.out.println("Thread2 - Попытка захватить монитор объекта Lock2");
         synchronized (MainDeadLock.lock2){
-            System.out.println("Thread20 - Монитор объекта Lock2 захвачен");
+            System.out.println("Thread2 - Монитор объекта Lock2 захвачен");
 
-            System.out.println("Thread20 - Попытка захватить монитор объекта Lock1");
+            System.out.println("Thread2 - Попытка захватить монитор объекта Lock1");
             synchronized (MainDeadLock.lock1){
-                System.out.println("Thread20 - Мониторы объектов Lock1 и Lock2 захвачены");
+                System.out.println("Thread2 - Мониторы объектов Lock1 и Lock2 захвачены");
             }
         }
     }
