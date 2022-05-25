@@ -1,41 +1,27 @@
 package com.urise.webapp;
 
 public class MainDeadLock {
-    public static final Object lock1 = new Object();
-    public static final Object lock2 = new Object();
+    public static final Object LOCK1 = new Object();
+    public static final Object LOCK2 = new Object();
 
     public static void main(String[] args) {
-        Thread1 thread10 = new Thread1();
-        Thread2 thread20 = new Thread2();
-        thread10.start();
-        thread20.start();
+        new Thread(() -> {
+            monitorLock(LOCK1, LOCK2);
+        }).start();
+        new Thread(() -> {
+            monitorLock(LOCK2, LOCK1);
+        }).start();
     }
-}
 
-class Thread1 extends Thread{
-    public void run(){
-        System.out.println("Thread1 - Попытка захватить монитор объекта Lock1");
-        synchronized (MainDeadLock.lock1){
-            System.out.println("Thread1 - Монитор объекта Lock1 захвачен");
-
-            System.out.println("Thread1 - Попытка захватить монитор объекта Lock2");
-            synchronized (MainDeadLock.lock2){
-                System.out.println("Thread1 - Мониторы объектов Lock1 и Lock2 захвачены");
+    private static void monitorLock(Object lock1, Object lock2) {
+        System.out.println(Thread.currentThread().getName() + " - Попытка захватить монитор объекта lock1");
+        synchronized (lock1) {
+            System.out.println(Thread.currentThread().getName() + " - Монитор объекта Lock1 захвачен");
+            System.out.println(Thread.currentThread().getName() + " - Попытка захватить монитор объекта Lock2");
+            synchronized (lock2) {
+                System.out.println(Thread.currentThread().getName() + " - Мониторы объектов Lock1 и Lock2 захвачены");
             }
         }
     }
 }
 
-class Thread2 extends Thread{
-    public void run(){
-        System.out.println("Thread2 - Попытка захватить монитор объекта Lock2");
-        synchronized (MainDeadLock.lock2){
-            System.out.println("Thread2 - Монитор объекта Lock2 захвачен");
-
-            System.out.println("Thread2 - Попытка захватить монитор объекта Lock1");
-            synchronized (MainDeadLock.lock1){
-                System.out.println("Thread2 - Мониторы объектов Lock1 и Lock2 захвачены");
-            }
-        }
-    }
-}
