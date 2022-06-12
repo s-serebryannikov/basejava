@@ -1,5 +1,6 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.Config;
 import com.urise.webapp.ResumeTestDate;
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
@@ -12,10 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("D:\\BaseJava\\basejava\\storage");
+    protected static final File STORAGE_DIR = Config.get().getStorageDir();
     protected final Storage storage;
 
     private final Resume RESUME_1;
@@ -78,7 +78,7 @@ public abstract class AbstractStorageTest {
     public void updateShouldReplaceResume() {
         Resume resume = new Resume("uuid1", "Иван Сидоров");
         storage.update(resume);
-        assertTrue(resume.equals(storage.get("uuid1")));
+        assertEquals(resume, storage.get("uuid1"));
     }
 
     @Test(expected = NotExistStorageException.class)
