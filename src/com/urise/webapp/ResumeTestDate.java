@@ -50,7 +50,6 @@ public class ResumeTestDate {
 //    }
 
     public static Resume createResume(String uuid,String fullName) {
-
         Resume resume = new Resume(uuid,fullName);
 //        resume.contacts.put(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
 //        resume.contacts.put(ContactType.SKYPE, "grigory.kislin");

@@ -1,8 +1,4 @@
-package com.urise.webapp.util;
-
-import com.urise.webapp.exception.StorageException;
-import com.urise.webapp.sql.ConnectionFactory;
-import com.urise.webapp.sql.Executor;
+package com.urise.webapp.sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +16,7 @@ public class SqlHelper {
              PreparedStatement ps = conn.prepareStatement(query)) {
             return executor.execute(ps);
         } catch (SQLException e) {
-            throw new StorageException(e);
+            throw SqlException.sqlExeption(e);
         }
     }
 }

@@ -69,7 +69,6 @@ public abstract class AbstractStorage<SK> implements Storage {
 //                return r1.getUuid().compareTo(r2.getUuid());
 //            }
 //        };
-
         Comparator<Resume> resumeComparator = Comparator.comparing(Resume::getFullName).thenComparing(Resume::getUuid);
         List<Resume> sortedList = doCopyAll();
         sortedList.sort(resumeComparator);
