@@ -1,5 +1,6 @@
 package com.urise.webapp;
 
+import com.urise.webapp.model.ContactType;
 import com.urise.webapp.model.Resume;
 
 public class ResumeTestDate {
@@ -51,13 +52,13 @@ public class ResumeTestDate {
 
     public static Resume createResume(String uuid,String fullName) {
         Resume resume = new Resume(uuid,fullName);
-//        resume.contacts.put(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
-//        resume.contacts.put(ContactType.SKYPE, "grigory.kislin");
-//        resume.contacts.put(ContactType.MAIL, "gkislin@yandex.ru");
-//        resume.contacts.put(ContactType.LINKED_IN, "Профиль LinkedIn");
-//        resume.contacts.put(ContactType.GITHUB, "Профиль GitHub");
-//        resume.contacts.put(ContactType.STACKOVERFLOW, "Профиль Stackoverflow");
-//
+        resume.contacts.put(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
+        resume.contacts.put(ContactType.SKYPE, "grigory.kislin");
+        resume.contacts.put(ContactType.MAIL, "gkislin@yandex.ru");
+        resume.contacts.put(ContactType.LINKED_IN, "Профиль LinkedIn");
+        resume.contacts.put(ContactType.GITHUB, "Профиль GitHub");
+        resume.contacts.put(ContactType.STACKOVERFLOW, "Профиль Stackoverflow");
+
 //        TextSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
 //        TextSection objective = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
 //
