@@ -135,7 +135,7 @@ public class SqlStorage implements Storage {
     }
 
     private void deleteContact(Resume r) {
-        sqlHelper.execute("DELETE FROM contact ", ps -> {
+        sqlHelper.execute("DELETE FROM contact WHERE resume_uuid = ?", ps -> {
             ps.setString(1, r.getUuid());
             if (ps.executeUpdate() == 0) {
                 throw new NotExistStorageException(r.getUuid());
