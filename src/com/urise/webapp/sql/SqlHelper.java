@@ -22,7 +22,7 @@ public class SqlHelper {
         }
     }
 
-    public <T> void transactionalExecute(SqlTransaction<T> executor) {
+    public <T> void  transactionalExecute(SqlTransaction<T> executor) {
         try (Connection conn = connectionFactory.getConnection()) {
             try {
                 conn.setAutoCommit(false);
