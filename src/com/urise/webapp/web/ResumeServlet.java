@@ -10,7 +10,7 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setHeader("ContentType","text/html; charset=UTF-8");
-        String name = request.getParameter("name");
+        String name = request.
         response.getWriter().write(name == null ? "Hello resumes" : "Hello " + name + "!");
 
     }
