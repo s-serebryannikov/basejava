@@ -5,11 +5,11 @@
          version="4.0">
     
     <servlet>
-        <servlet-name>resumeServlet</servlet-name>
+        <servlet-name>ResumeServlet</servlet-name>
         <servlet-class>com.urise.webapp.web.ResumeServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>resumeServlet</servlet-name>
+        <servlet-name>ResumeServlet</servlet-name>
         <url-pattern>/resume</url-pattern>
     </servlet-mapping>
 </web-app>
