@@ -5,10 +5,7 @@ import com.urise.webapp.model.*;
 import com.urise.webapp.sql.SqlHelper;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SqlStorage implements Storage {
     SqlHelper sqlHelper;
@@ -111,8 +108,8 @@ public class SqlStorage implements Storage {
                         }
                     }
                     deleteContact(r);
-                    deleteSection(r);
                     insertContact(r, conn);
+                    deleteSection(r);
                     insertSection(r, conn);
                     return null;
                 }

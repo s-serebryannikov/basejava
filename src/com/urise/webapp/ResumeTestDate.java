@@ -54,12 +54,12 @@ public class ResumeTestDate {
 
     public static Resume createResume(String uuid,String fullName) {
         Resume resume = new Resume(uuid,fullName);
-        resume.contacts.put(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
-        resume.contacts.put(ContactType.SKYPE, "grigory.kislin");
-        resume.contacts.put(ContactType.MAIL, "gkislin@yandex.ru");
-        resume.contacts.put(ContactType.LINKED_IN, "Профиль LinkedIn");
-        resume.contacts.put(ContactType.GITHUB, "Профиль GitHub");
-        resume.contacts.put(ContactType.STACKOVERFLOW, "Профиль Stackoverflow");
+        resume.addContact(ContactType.PHONE_NUMBER, "+7(921) 855-0482");
+        resume.addContact(ContactType.SKYPE, "grigory.kislin");
+        resume.addContact(ContactType.MAIL, "gkislin@yandex.ru");
+        resume.addContact(ContactType.LINKED_IN, "Профиль LinkedIn");
+        resume.addContact(ContactType.GITHUB, "Профиль GitHub");
+        resume.addContact(ContactType.STACKOVERFLOW, "Профиль Stackoverflow");
 
         TextSection personal = new TextSection("Аналитический склад ума, сильная логика, креативность, инициативность. Пурист кода и архитектуры.");
         TextSection objective = new TextSection("Ведущий стажировок и корпоративного обучения по Java Web и Enterprise технологиям");
@@ -112,10 +112,10 @@ public class ResumeTestDate {
 //        educationList.add(new Organization(new Link("Siemens AG", "https://new.siemens.com/ru/ru.html"), periodsListSiemens));
 //        OrganizationSection education = new OrganizationSection(educationList);
 //
-        resume.sections.put(SectionType.OBJECTIVE, objective);
-        resume.sections.put(SectionType.PERSONAL, personal);
-        resume.sections.put(SectionType.ACHIEVEMENT, achievement);
-        resume.sections.put(SectionType.QUALIFICATION, qualification);
+        resume.addSection(SectionType.OBJECTIVE, objective);
+        resume.addSection(SectionType.PERSONAL, personal);
+        resume.addSection(SectionType.ACHIEVEMENT, achievement);
+        resume.addSection(SectionType.QUALIFICATION, qualification);
 //        resume.sections.put(SectionType.EXPERIENCE, experience);
 //        resume.sections.put(SectionType.EDUCATION, education);
 
