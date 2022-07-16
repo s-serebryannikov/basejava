@@ -47,7 +47,8 @@ public class Organization implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Organization that = (Organization) o;
-        return Objects.equals(positions, that.positions) && Objects.equals(homePage, that.homePage);
+        return Objects.equals(homePage, that.homePage) &&
+                Objects.equals(positions, that.positions);
     }
 
     @Override
@@ -71,7 +72,7 @@ public class Organization implements Serializable {
         private LocalDate endDate;
         private String discription;
 
-        public Position() {
+        public Position(LocalDate of, String position1, String content1) {
         }
 
         public Position(int startYear, Month startMonth, String title, String discription) {
