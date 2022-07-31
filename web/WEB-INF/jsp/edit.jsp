@@ -30,26 +30,28 @@
 
         <h3>Секции:</h3>
         <c:forEach var="type" items="<%=SectionType.values()%>">
-
             <c:choose>
                 <c:when test="${type eq 'OBJECTIVE' || type eq 'PERSONAL'}">
-                    <label>
                         <h4>${type.title}</h4>
                         <textarea name="${type}" rows="5" cols="55">${resume.sections.get(type)}</textarea>
-                    </label>
                 </c:when>
                 <c:when test="${type eq 'ACHIEVEMENT' || type eq 'QUALIFICATION'}">
                     <h4>${type.title}</h4>
-<%--                    <c:forEach var="typeSection" items="${(resume.getSection(type)).getContent()}">--%>
-                        <textarea name="${type.name()}" rows="5" cols="55">${(resume.getSection(type)).getContent()}</textarea>
-<%--                    </c:forEach>--%>
+
+                    <c:if test="${resume.getSection(type) != null}">
+                        <textarea name=${type} rows="5" cols="55">${resume.getSection(type)}</textarea>
+                    </c:if>
+                    <c:if test="${resume.getSection(type) == null}">
+                        <textarea name=${type} rows="5" cols="55"></textarea>
+                    </c:if>
+
                 </c:when>
             </c:choose>
         </c:forEach>
 
         <div style="margin-top: 20px">
             <button type="submit">Сохранить</button>
-            <button onclick="window.history.back()">Отменить</button>
+            <button type="reset" onclick="window.history.back()">Отменить</button>
         </div>
     </form>
 </section>

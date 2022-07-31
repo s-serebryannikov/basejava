@@ -33,26 +33,10 @@ public class ResumeServlet extends HttpServlet {
                 return;
             case "view":
             case "edit":
-                r = storage.get(uuid);
-                for (SectionType type : SectionType.values()) {
-                    AbstractSection section = r.getSection(type);
-                    switch (type) {
-                        case OBJECTIVE:
-                        case PERSONAL:
-                            if (section == null) {
-                                section = new TextSection("");
-                            }
-                            break;
-                        case ACHIEVEMENT:
-                        case QUALIFICATION:
-                            if (section == null) {
-                                section = new ListSection("");
-                            }
-                            break;
-                        case EXPERIENCE:
-                        case EDUCATION:
-                    }
-                    r.addSection(type, section);
+                if (uuid == null) {
+                    r = new Resume();
+                } else {
+                    r = storage.get(uuid);
                 }
                 break;
             default:
@@ -98,7 +82,8 @@ public class ResumeServlet extends HttpServlet {
                     break;
                 case ACHIEVEMENT:
                 case QUALIFICATION:
-                    String[] values = request.getParameterValues(type.name());
+                    String parameter = request.getParameter(type.name());
+                    String[] values = parameter.split("\n");
                     List<String> result = new ArrayList<>();
                     for (String item : values) {
                         if (item != null && item.trim().length() != 0) {

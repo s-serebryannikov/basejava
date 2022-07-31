@@ -28,44 +28,50 @@
         <c:forEach var="sectionEntry" items="${resume.sections}">
             <jsp:useBean id="sectionEntry"
                          type="java.util.Map.Entry<com.urise.webapp.model.SectionType, com.urise.webapp.model.AbstractSection>"/>
+
+        <c:choose>
+        <c:when test="${(sectionEntry.key eq 'OBJECTIVE') || (sectionEntry.key eq'PERSONAL')}">
+        <c:if test="${sectionEntry.value != null}">
     <h2><%=sectionEntry.getKey().getTitle()%><br/></h2>
-    <c:choose>
-        <c:when test="${(sectionEntry.key == 'OBJECTIVE') || (sectionEntry.key =='PERSONAL')}">
-            ${sectionEntry.value}
-        </c:when>
-        <c:when test="${(sectionEntry.key == 'ACHIEVEMENT') || (sectionEntry.key == 'QUALIFICATION')}">
-            <c:forEach var="item" items="${sectionEntry.value.content}">
-                <ul>
-                    <li>
-                        <p>${item}</p>
-                    </li>
-                </ul>
+    <div> ${sectionEntry.value}</div>
+    </c:if>
+
+
+    </c:when>
+    <c:when test="${(sectionEntry.key eq 'ACHIEVEMENT') || (sectionEntry.key eq 'QUALIFICATION')}">
+        <h2><%=sectionEntry.getKey().getTitle()%><br/></h2>
+        <c:forEach var="item" items="${sectionEntry.value.content}">
+            <ul>
+                <li>
+                    <p>${item}</p>
+                </li>
+            </ul>
+        </c:forEach>
+    </c:when>
+    <c:when test="${(sectionEntry.key eq 'EXPERIENCE') || (sectionEntry.key eq 'EDUCATION')}">
+        <c:forEach var="organization" items="${sectionEntry.value.organizations}">
+            <c:set var="notUrl" value=""/>
+            <c:if test="${organization.homePage.url == notUrl}">
+                <h3>${organization.homePage.name}</h3>
+            </c:if>
+            <c:if test="${organization.homePage.url != notUrl}">
+                <h3><a href="${organization.homePage.url}">${organization.homePage.name}</a></h3>
+            </c:if>
+            <c:forEach var="position" items="${organization.positions}">
+                <table cellpadding="2">
+                    <tr>
+                        <td width="20%" style="vertical-align: top">${position.startDate} - ${position.endDate}
+                        </td>
+                        <td><b>${position}</b><br>${position.title}
+                        </td>
+                    </tr>
+                </table>
             </c:forEach>
-        </c:when>
-        <c:when test="${(sectionEntry.key == 'EXPERIENCE') || (sectionEntry.key == 'EDUCATION')}">
-            <c:forEach var="organization" items="${sectionEntry.value.organizations}">
-                <c:set var="notUrl" value=""/>
-                <c:if test="${organization.homePage.url == notUrl}">
-                    <h3>${organization.homePage.name}</h3>
-                </c:if>
-                <c:if test="${organization.homePage.url != notUrl}">
-                    <h3><a href="${organization.homePage.url}">${organization.homePage.name}</a></h3>
-                </c:if>
-                <c:forEach var="position" items="${organization.positions}">
-                    <table cellpadding="2">
-                        <tr>
-                            <td width="20%" style="vertical-align: top">${position.startDate} - ${position.endDate}
-                            </td>
-                            <td><b>${position}</b><br>${position.title}
-                            </td>
-                        </tr>
-                    </table>
-                </c:forEach>
-            </c:forEach>
-        </c:when>
-        <c:otherwise>
-            Section not exists
-        </c:otherwise>
+        </c:forEach>
+    </c:when>
+    <c:otherwise>
+        Section not exists
+    </c:otherwise>
     </c:choose>
     </c:forEach>
     <p>
