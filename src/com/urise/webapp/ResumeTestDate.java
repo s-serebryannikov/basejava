@@ -17,40 +17,40 @@
 ////
 ////        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/yyyy");
 ////
-////        Map<SectionType, AbstractSection> sections = resume.getSections();
-////        for (Map.Entry<SectionType, AbstractSection> section : sections.entrySet()) {
-////            SectionType sectionTypeKey = section.getKey();
-////            AbstractSection sectionTypeValue = section.getValue();
-////            switch (sectionTypeKey) {
-////                case OBJECTIVE, PERSONAL -> {
-////                    TextSection textSection = (TextSection) sectionTypeValue;
-////                    System.out.println(section.getKey().getTitle() + '\n' + textSection.getContent() + '\n');
-////                }
-////                case ACHIEVEMENT, QUALIFICATION -> {
-////                    ListSection listSectionText = (ListSection) sectionTypeValue;
-////                    System.out.println(section.getKey().getTitle() + '\n');
-////                    for (String str : listSectionText.getContent()) {
-////                        System.out.println(str);
-////                    }
-////                    System.out.println();
-////                }
-////                case EXPERIENCE, EDUCATION -> {
-////                    OrganizationSection organizationSection = (OrganizationSection) sectionTypeValue;
-////                    System.out.println(section.getKey().getTitle() + '\n');
-////                    for (Organization organization : organizationSection.getOrganizations()) {
-////                        Link titleLink = organization.getHomePage();
-////                        System.out.println(titleLink.getName());
-////                        for (Organization.Position periods : organization.getPositions()) {
-////                            System.out.println(formatter.format(periods.getStartDate()) + " - " + formatter.format(periods.getEndDate()));
-////                            if (periods.getTitle() != null) System.out.println(periods.getTitle());
-////                            System.out.println(periods.getDiscription());
-////                        }
-////                        System.out.println();
-////                    }
-////                }
-////            }
-////        }
-////    }
+//        Map<SectionType, AbstractSection> sections = resume.getSections();
+//        for (Map.Entry<SectionType, AbstractSection> section : sections.entrySet()) {
+//            SectionType sectionTypeKey = section.getKey();
+//            AbstractSection sectionTypeValue = section.getValue();
+//            switch (sectionTypeKey) {
+//                case OBJECTIVE, PERSONAL -> {
+//                    TextSection textSection = (TextSection) sectionTypeValue;
+//                    System.out.println(section.getKey().getTitle() + '\n' + textSection.getContent() + '\n');
+//                }
+//                case ACHIEVEMENT, QUALIFICATION -> {
+//                    ListSection listSectionText = (ListSection) sectionTypeValue;
+//                    System.out.println(section.getKey().getTitle() + '\n');
+//                    for (String str : listSectionText.getContent()) {
+//                        System.out.println(str);
+//                    }
+//                    System.out.println();
+//                }
+//                case EXPERIENCE, EDUCATION -> {
+//                    OrganizationSection organizationSection = (OrganizationSection) sectionTypeValue;
+//                    System.out.println(section.getKey().getTitle() + '\n');
+//                    for (Organization organization : organizationSection.getOrganizations()) {
+//                        Link titleLink = organization.getHomePage();
+//                        System.out.println(titleLink.getName());
+//                        for (Organization.Position periods : organization.getPositions()) {
+//                            System.out.println(formatter.format(periods.getStartDate()) + " - " + formatter.format(periods.getEndDate()));
+//                            if (periods.getTitle() != null) System.out.println(periods.getTitle());
+//                            System.out.println(periods.getDiscription());
+//                        }
+//                        System.out.println();
+//                    }
+//                }
+//            }
+//        }
+//    }
 //
 //    public static Resume createResume(String uuid,String fullName) {
 //        Resume resume = new Resume(uuid,fullName);

@@ -15,6 +15,6 @@ public enum SectionType {
     }
 
     public String getTitle() {
-        return title;
+        return (title == null) ? "" : title;
     }
 }

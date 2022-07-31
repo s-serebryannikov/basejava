@@ -43,6 +43,23 @@ public class Resume implements Comparable<Resume>, Serializable {
         return sections;
     }
 
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getContact(ContactType type) {
+        return contacts.get(type);
+    }
+
+
+    public AbstractSection getSection(SectionType type) {
+        return sections.get(type);
+    }
+
     public String getFullName() {
         return fullName;
     }
@@ -51,7 +68,7 @@ public class Resume implements Comparable<Resume>, Serializable {
         return uuid;
     }
 
-    public void addContact(ContactType type, String value) {
+    public void addContact(ContactType type, String value){
         contacts.put(type, value);
     }
 

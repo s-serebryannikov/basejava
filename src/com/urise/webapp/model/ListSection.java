@@ -24,11 +24,18 @@ public class ListSection extends AbstractSection {
         return content;
     }
 
+    public void addContent(String item){
+        content.add(item);
+    }
+
     @Override
     public String toString() {
-        return "ListSection{" +
-                "elements=" + content +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        for (String element : content) {
+            sb.append(element).append("\n");
+        }
+        sb.delete(sb.length() - 1, sb.length());
+        return sb.toString();
     }
 
     @Override
