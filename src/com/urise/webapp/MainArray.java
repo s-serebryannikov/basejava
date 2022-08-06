@@ -13,6 +13,7 @@ public class MainArray {
     final static Storage ARRAY_STORAGE = new MapStorageResume();
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {

@@ -12,8 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import static com.urise.webapp.util.DateUtil.NOW;
-import static com.urise.webapp.util.DateUtil.of;
+import static com.urise.webapp.util.DateUtil.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
@@ -25,9 +24,9 @@ public class Organization implements Serializable {
     public Organization() {
     }
 
-    public Organization(Link homePage, List<Position> periodsList) {
+    public Organization(Link homePage, List<Position> positionList) {
         this.homePage = homePage;
-        this.positions = periodsList;
+        this.positions = positionList;
     }
 
     public Organization(String name, String url, Position... positions) {
@@ -70,19 +69,18 @@ public class Organization implements Serializable {
         private LocalDate startDate;
         @XmlJavaTypeAdapter(LocalDateAdapter.class)
         private LocalDate endDate;
-        private String discription;
+        private String description;
 
-        public Position(LocalDate of, String position1, String content1) {
+        public Position() {
         }
 
-        public Position(int startYear, Month startMonth, String title, String discription) {
-            this(of(startYear, startMonth), NOW, title, discription);
+        public Position(int startYear, Month startMonth, String title, String description) {
+            this(of(startYear, startMonth), NOW, title, description);
         }
 
-        public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String discription) {
-            this(of(startYear, startMonth), of(endYear, endMonth), title, discription);
+        public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
+            this(of(startYear, startMonth), of(endYear, endMonth), title, description);
         }
-
 
         public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
             Objects.requireNonNull(startDate, "startDate must not be null");
@@ -91,9 +89,24 @@ public class Organization implements Serializable {
             this.title = title;
             this.startDate = startDate;
             this.endDate = endDate;
-            this.discription = description;
+            this.description = description;
         }
 
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setStartDate(LocalDate startDate) {
+            this.startDate = startDate;
+        }
+
+        public void setEndDate(LocalDate endDate) {
+            this.endDate = endDate;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
 
         public String getTitle() {
             return title;
@@ -107,8 +120,8 @@ public class Organization implements Serializable {
             return endDate;
         }
 
-        public String getDiscription() {
-            return discription;
+        public String getDescription() {
+            return description;
         }
 
         @Override
@@ -119,17 +132,17 @@ public class Organization implements Serializable {
             return Objects.equals(title, position.title) &&
                     Objects.equals(startDate, position.startDate) &&
                     Objects.equals(endDate, position.endDate) &&
-                    Objects.equals(discription, position.discription);
+                    Objects.equals(description, position.description);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(title, startDate, endDate, discription);
+            return Objects.hash(title, startDate, endDate, description);
         }
 
         @Override
         public String toString() {
-            return "Position(" + startDate + ',' + "endDate" + ',' + endDate + ',' + title + ',' + discription + ')';
+            return "Position(" + startDate + ',' + "endDate" + ',' + endDate + ',' + title + ',' + description + ')';
         }
     }
 }

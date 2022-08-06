@@ -2,6 +2,7 @@
 <%@ page import="com.urise.webapp.model.TextSection" %>
 <%@ page import="com.urise.webapp.model.ListSection" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.urise.webapp.util.DateUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -35,8 +36,6 @@
     <h2><%=sectionEntry.getKey().getTitle()%><br/></h2>
     <div> ${sectionEntry.value}</div>
     </c:if>
-
-
     </c:when>
     <c:when test="${(sectionEntry.key eq 'ACHIEVEMENT') || (sectionEntry.key eq 'QUALIFICATION')}">
         <h2><%=sectionEntry.getKey().getTitle()%><br/></h2>
@@ -49,6 +48,7 @@
         </c:forEach>
     </c:when>
     <c:when test="${(sectionEntry.key eq 'EXPERIENCE') || (sectionEntry.key eq 'EDUCATION')}">
+        <h2><%=sectionEntry.getKey().getTitle()%><br/></h2>
         <c:forEach var="organization" items="${sectionEntry.value.organizations}">
             <c:set var="notUrl" value=""/>
             <c:if test="${organization.homePage.url == notUrl}">
@@ -58,14 +58,12 @@
                 <h3><a href="${organization.homePage.url}">${organization.homePage.name}</a></h3>
             </c:if>
             <c:forEach var="position" items="${organization.positions}">
-                <table cellpadding="2">
-                    <tr>
-                        <td width="20%" style="vertical-align: top">${position.startDate} - ${position.endDate}
-                        </td>
-                        <td><b>${position}</b><br>${position.title}
-                        </td>
-                    </tr>
-                </table>
+                <jsp:useBean id="position" type="com.urise.webapp.model.Organization.Position"/>
+                <div>
+                    <div><%=DateUtil.getStringDate(position.getStartDate())%> - <%=DateUtil.getStringDate(position.getEndDate())%></div>
+                    <div>${position.title}</div>
+                </div>
+                <div>${position.description}</div>
             </c:forEach>
         </c:forEach>
     </c:when>
