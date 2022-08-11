@@ -24,6 +24,13 @@ public class Organization implements Serializable {
     public Organization() {
     }
 
+    public Organization(String organization, String url, LocalDate beginDate, LocalDate finishDate, String title, String description) {
+        Objects.requireNonNull(organization, "organization must not be null");
+        homePage = new Link(organization, url);
+        Position period = new Position(beginDate, finishDate, title, description);
+        positions.add(period);
+    }
+
     public Organization(Link homePage, List<Position> positionList) {
         this.homePage = homePage;
         this.positions = positionList;

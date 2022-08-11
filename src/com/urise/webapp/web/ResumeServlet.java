@@ -35,7 +35,11 @@ public class ResumeServlet extends HttpServlet {
                 r = storage.get(uuid);
                 break;
             case "edit":
-                r = storage.get(uuid);
+                if (uuid != null) {
+                    r = storage.get(uuid);
+                } else {
+                    r = new Resume("", "");
+                }
                 for (SectionType type : SectionType.values()) {
                     AbstractSection section = r.getSection(type);
                     switch (type) {
@@ -63,14 +67,17 @@ public class ResumeServlet extends HttpServlet {
                                     positions.addAll(org.getPositions());
                                     organizations.add(new Organization(org.getHomePage(), positions));
                                 }
+                                r.addSection(type, new OrganizationSection(organizations));
+                            } else {
+                                r.addSection(type, new OrganizationSection(new Organization("", "", new Organization.Position())));
                             }
-                            r.addSection(type, new OrganizationSection(organizations));
                     }
                 }
                 break;
             default:
                 throw new IllegalArgumentException("Action " + action + " is illegal");
         }
+
         request.setAttribute("resume", r);
         request.getRequestDispatcher(
                 ("view".equals(action) ? "/WEB-INF/jsp/view.jsp" : "/WEB-INF/jsp/edit.jsp")
@@ -137,6 +144,8 @@ public class ResumeServlet extends HttpServlet {
                         }
                         r.addSection(type, new OrganizationSection(organizations));
                         break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + type);
                 }
             }
         }

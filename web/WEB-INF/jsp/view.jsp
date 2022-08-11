@@ -1,7 +1,3 @@
-<%@ page import="com.urise.webapp.model.SectionType" %>
-<%@ page import="com.urise.webapp.model.TextSection" %>
-<%@ page import="com.urise.webapp.model.ListSection" %>
-<%@ page import="java.util.List" %>
 <%@ page import="com.urise.webapp.util.DateUtil" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -60,7 +56,9 @@
             <c:forEach var="position" items="${organization.positions}">
                 <jsp:useBean id="position" type="com.urise.webapp.model.Organization.Position"/>
                 <div>
-                    <div><%=DateUtil.getStringDate(position.getStartDate())%> - <%=DateUtil.getStringDate(position.getEndDate())%></div>
+                    <div><%=DateUtil.getStringDate(position.getStartDate())%>
+                        - <%=DateUtil.getStringDate(position.getEndDate())%>
+                    </div>
                     <div>${position.title}</div>
                 </div>
                 <div>${position.description}</div>

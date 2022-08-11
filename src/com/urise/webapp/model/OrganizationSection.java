@@ -18,6 +18,23 @@ public class OrganizationSection extends AbstractSection {
     public OrganizationSection() {
     }
 
+    public void addOrganization(Organization organization) {
+        if (OrganizationExist(organization) == -1) {
+            organizations.add(organization);
+        } else {
+            organizations.get(OrganizationExist(organization)).getPositions().add(organization.getPositions().get(0));
+        }
+    }
+
+    private int OrganizationExist(Organization organization) {
+        for (int i = 0; i < organizations.size(); i++) {
+            if (organization.getHomePage().equals(organizations.get(i).getHomePage())) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public OrganizationSection(List<Organization> organizations) {
         Objects.requireNonNull(organizations, "organizations must not be null");
         this.organizations = organizations;
