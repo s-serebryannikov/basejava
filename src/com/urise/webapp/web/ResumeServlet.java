@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ResumeServlet extends HttpServlet {
     private Storage storage = Config.get().getStorage();
@@ -107,6 +108,7 @@ public class ResumeServlet extends HttpServlet {
         }
 
         for (SectionType type : SectionType.values()) {
+            AbstractSection section = r.getSection(type);
             String value = request.getParameter(type.name());
             String[] values = request.getParameterValues(type.name());
             if (value == null || value.trim().length() == 0 && values.length < 2) {
@@ -119,7 +121,14 @@ public class ResumeServlet extends HttpServlet {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATION:
-                        r.addSection(type, new ListSection(value.split("\\n")));
+                        List<String> list = new ArrayList<>();
+                        String[] val = value.split("\\n");
+                        for (String s : val) {
+                            if (!Objects.equals(s, "\r")) {
+                                list.add(s);
+                            }
+                        }
+                        r.addSection(type, new ListSection(list));
                         break;
                     case EXPERIENCE:
                     case EDUCATION:

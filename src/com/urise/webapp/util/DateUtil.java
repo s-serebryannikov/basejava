@@ -1,9 +1,11 @@
 package com.urise.webapp.util;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 
 public class DateUtil{
     public static final LocalDate NOW = LocalDate.of(3000, 1, 1);
@@ -15,7 +17,8 @@ public class DateUtil{
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("MM/yyyy");
 
     public static LocalDate getLocalDate(String date) {
-        if (date.equals("Сейчас") || (date == null || date.trim().length() == 0))  {
+        String timeStamp = new SimpleDateFormat("MM/yyyy").format(Calendar.getInstance().getTime());
+        if (date.equals("Сейчас") || (date == null || date.trim().length() == 0)|| date.equals(timeStamp))  {
             return NOW;
         }
         YearMonth yM = YearMonth.parse(date, DATE_TIME_FORMATTER);
